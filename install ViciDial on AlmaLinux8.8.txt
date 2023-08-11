@@ -442,6 +442,8 @@ sleep 20
 /usr/share/astguiclient/start_asterisk_boot.pl
 exit 0
 
+chmod +x /etc/rc.local
+
 #############################################
 crontab -e
 
