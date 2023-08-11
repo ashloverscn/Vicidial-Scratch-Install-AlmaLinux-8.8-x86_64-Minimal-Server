@@ -306,6 +306,20 @@ make install
 ldconfig
 
 #############################################
+cd /usr/src
+#wget http://download.vicidial.com/required-apps/sipsak-0.9.6-1.tar.gz
+#tar -zxf sipsak-0.9.6-1.tar.gz
+#cd sipsak-0.9.6
+git clone https://github.com/nils-ohlmeier/sipsak.git
+cd sipsak
+autoreconf --install
+./configure
+make
+make install
+/usr/local/bin/sipsak --version
+sipsak --version
+
+#############################################
 cd /usr/src/
 wget https://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/dahdi-linux-complete-current.tar.gz
 tar xzf dahdi*
