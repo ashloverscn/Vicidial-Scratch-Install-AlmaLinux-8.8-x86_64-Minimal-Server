@@ -15,9 +15,11 @@ dnf module enable php:remi-7.4 -y
 dnf -y install dnf-plugins-core
 dnf config-manager --set-enabled powertools
 
+dnf --enablerepo=powertools install libsrtp-devel -y
+yum install -y elfutils-libelf-devel libedit-devel
+
 yum install -y php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-opcache wget unzip make patch gcc gcc-c++ subversion php php-devel php-gd gd-devel readline-devel php-mbstring php-mcrypt php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel httpd libpcap libpcap-devel libnet ncurses ncurses-devel screen kernel* mutt glibc.i686 certbot python3-certbot-apache mod_ssl openssl-devel newt-devel libxml2-devel kernel-devel sqlite-devel libuuid-devel sox sendmail lame-devel htop iftop perl-File-Which php-opcache libss7 mariadb-devel libss7* libopen* 
 yum -y install sqlite-devel
-
 
 tee -a /etc/httpd/conf/httpd.conf <<EOF
 
@@ -32,21 +34,6 @@ Alias /RECORDINGS/MP3 "/var/spool/asterisk/monitorDONE/MP3/"
 </Directory>
 EOF
 
-
-tee -a /etc/php.ini <<EOF
-
-error_reporting  =  E_ALL & ~E_NOTICE
-memory_limit = 448M
-short_open_tag = On
-max_execution_time = 3330
-max_input_time = 3360
-post_max_size = 448M
-upload_max_filesize = 442M
-default_socket_timeout = 3360
-date.timezone = America/New_York
-EOF
-
-
 systemctl restart httpd
 
 
@@ -58,127 +45,103 @@ dnf config-manager --set-enabled powertools
 
 systemctl enable mariadb
 
-cp /etc/my.cnf /etc/my.cnf.original
+cd /usr/src
+\cp -r /etc/my.cnf /etc/my.cnf.original
 echo "" > /etc/my.cnf
-
-
-cat <<MYSQLCONF>> /etc/my.cnf
-[mysql.server]
-user = mysql
-#basedir = /var/lib
-
-[client]
-port = 3306
-socket = /var/lib/mysql/mysql.sock
-
-[mysqld]
-datadir = /var/lib/mysql
-#tmpdir = /home/mysql_tmp
-socket = /var/lib/mysql/mysql.sock
-user = mysql
-old_passwords = 0
-ft_min_word_len = 3
-max_connections = 800
-max_allowed_packet = 32M
-skip-external-locking
-sql_mode="NO_ENGINE_SUBSTITUTION"
-
-log-error = /var/log/mysqld/mysqld.log
-
-query-cache-type = 1
-query-cache-size = 32M
-
-long_query_time = 1
-#slow_query_log = 1
-#slow_query_log_file = /var/log/mysqld/slow-queries.log
-
-tmp_table_size = 128M
-table_cache = 1024
-
-join_buffer_size = 1M
-key_buffer = 512M
-sort_buffer_size = 6M
-read_buffer_size = 4M
-read_rnd_buffer_size = 16M
-myisam_sort_buffer_size = 64M
-
-max_tmp_tables = 64
-
-thread_cache_size = 8
-thread_concurrency = 8
-
-# If using replication, uncomment log-bin below
-#log-bin = mysql-bin
-
-[mysqldump]
-quick
-max_allowed_packet = 16M
-
-[mysql]
-no-auto-rehash
-
-[isamchk]
-key_buffer = 256M
-sort_buffer_size = 256M
-read_buffer = 2M
-write_buffer = 2M
-
-[myisamchk]
-key_buffer = 256M
-sort_buffer_size = 256M
-read_buffer = 2M
-write_buffer = 2M
-
-[mysqlhotcopy]
-interactive-timeout
-
-[mysqld_safe]
-#log-error = /var/log/mysqld/mysqld.log
-#pid-file = /var/run/mysqld/mysqld.pid
-MYSQLCONF
+#wget -O /usr/src/my.cnf https://raw.githubusercontent.com/ashloverscn/Vicidial-Scratch-Install-CentOS-7-2207-2-x86_64-Minimal-Server/main/my.cnf
+\cp -r ./my.cnf /etc/my.cnf
+#\cp -r /usr/src/my.cnf /etc/my.cnf 
 
 mkdir /var/log/mysqld
+mv /var/log/mysqld.log /var/log/mysqld/mysqld.log
 touch /var/log/mysqld/slow-queries.log
 chown -R mysql:mysql /var/log/mysqld
-systemctl restart mariadb
+
+cd /usr/src/
+\cp -r /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.original
+echo "" > /etc/httpd/conf/httpd.conf
+#wget -O /usr/src/httpd.conf https://github.com/ashloverscn/Vicidial-Scratch-Install-CentOS-7-2207-2-x86_64-Minimal-Server/raw/main/httpd.conf
+\cp -r ./httpd.conf /etc/httpd/conf/httpd.conf
+#\cp -r /usr/src/httpd.conf /etc/httpd/conf/httpd.conf
+
+cd /usr/src
+rm -rf /etc/httpd/ssl.crt/vicibox.crt
+rm -rf /etc/httpd/ssl.key/vicibox.key
+mkdir /etc/httpd/ssl.crt
+mkdir /etc/httpd/ssl.key
+\cp -r ./vicibox.crt /etc/httpd/ssl.crt/vicibox.crt
+\cp -r ./vicibox.key /etc/httpd/ssl.key/vicibox.key
+
+cd /usr/src
+\cp -r /etc/httpd/conf.d/0000-default.conf /etc/httpd/conf.d/0000-default.conf.original
+\cp -r /etc/httpd/conf.d/0000-default-ssl.conf /etc/httpd/conf.d/0000-default-ssl.conf.original
+echo "" > /etc/httpd/conf.d/0000-default.conf
+echo "" > /etc/httpd/conf.d/0000-default-ssl.conf
+#wget -O /usr/src/httpd.conf https://github.com/ashloverscn/Vicidial-Scratch-Install-CentOS-7-2207-2-x86_64-Minimal-Server/raw/main/0000-default.conf
+#wget -O /usr/src/httpd.conf https://github.com/ashloverscn/Vicidial-Scratch-Install-CentOS-7-2207-2-x86_64-Minimal-Server/raw/main/0000-default-ssl.conf
+\cp -r ./0000-default.conf /etc/httpd/conf.d/0000-default.conf
+\cp -r ./0000-default-ssl.conf /etc/httpd/conf.d/0000-default-ssl.conf
+#\cp -r /usr/src/0000-default.conf /etc/httpd/conf.d/0000-default.conf
+#\cp -r /usr/src/0000-default-ssl.conf /etc/httpd/conf.d/0000-default-ssl.conf
+mv /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.bak
+
+cd /usr/src
+\cp -r /etc/php.ini /etc/php.ini.original
+echo "" > /etc/php.ini
+#wget -O /usr/src/php.ini https://github.com/ashloverscn/Vicidial-Scratch-Install-CentOS-7-2207-2-x86_64-Minimal-Server/raw/main/php.ini
+\cp -r ./php.ini /etc/php.ini
+#\cp -r /usr/src/php.ini /etc/php.ini
+
+touch /var/www/html/index.html
+echo "" > /var/www/html/index.html
+sed -i -e '$a\
+<META HTTP-EQUIV=REFRESH CONTENT="1; URL=/vicidial/welcome.php"> \
+Please Hold while I redirect you! \
+' /var/www/html/index.html
 
 systemctl enable httpd.service
 systemctl enable mariadb.service
-systemctl restart httpd.service
-systemctl restart mariadb.service
+systemctl start httpd.service
+systemctl start mariadb.service
+systemctl status mariadb.service
+systemctl status httpd.service
 
 #Install Perl Modules
 
 echo "Install Perl"
 
-yum install -y perl-CPAN perl-YAML perl-libwww-perl perl-DBI perl-DBD-MySQL perl-GD perl-Env perl-Term-ReadLine-Gnu perl-SelfLoader perl-open.noarch
-cpan -i Tk String::CRC Tk::TableMatrix Net::Address::IP::Local Term::ReadLine::Gnu Spreadsheet::Read Net::Address::IPv4::Local RPM::Specfile Spreadsheet::XLSX Spreadsheet::ReadSXC MD5 Digest::MD5 Digest::SHA1 Bundle::CPAN Pod::Usage Getopt::Long DBI DBD::mysql Net::Telnet Time::HiRes Net::Server Mail::Sendmail Unicode::Map Jcode Spreadsheet::WriteExcel OLE::Storage_Lite Proc::ProcessTable IO::Scalar Scalar::Util Spreadsheet::ParseExcel Archive::Zip Compress::Raw::Zlib Spreadsheet::XLSX Test::Tester Spreadsheet::ReadSXC Text::CSV Test::NoWarnings Text::CSV_PP File::Temp Text::CSV_XS Spreadsheet::Read LWP::UserAgent HTML::Entities HTML::Strip HTML::FormatText HTML::TreeBuilder Switch Time::Local Mail::POP3Client Mail::IMAPClient Mail::Message IO::Socket::SSL readline
+yum -y install perl-CPAN perl-YAML perl-libwww-perl perl-DBI perl-DBD-MySQL perl-GD perl-Env perl-Term-ReadLine-Gnu perl-SelfLoader perl-open.noarch
 
-echo "Please Press ENTER for CPAN Install"
+#cpan o conf init
+#rm -rf /usr/share/perl5/CPAN/Config.pm
+#if [ -d ~/.cpan ]; then rm -fR ~/.cpan ; echo y | cpan > /dev/null 2>&1; fi
 
-yum install perl-CPAN -y
-yum install perl-YAML -y
-yum install perl-libwww-perl -y
-yum install perl-DBI -y
-yum install perl-DBD-MySQL -y
-yum install perl-GD -y
+perl -MCPAN -e 'my $c = "CPAN::HandleConfig"; $c->load(doit => 1, autoconfig => 1); $c->edit(prerequisites_policy => "follow"); $c->edit(build_requires_install_policy => "yes"); $c->commit' 
+
 cd /usr/bin/
-curl -LOk http://xrl.us/cpanm
+#curl -LOk http://xrl.us/cpanm
+#curl -LOk https://github.com/ashloverscn/Vicidial-Scratch-Install-CentOS-7-2207-2-x86_64-Minimal-Server/raw/main/cpanm
+\cp -r /usr/src/cpanm ./cpanm
+cpan App::cpanminus 
+#cpanm --installdeps .
 chmod +x cpanm
 cpanm -f File::HomeDir
 cpanm -f File::Which
 cpanm CPAN::Meta::Requirements
 cpanm -f CPAN
+cpanm Tk::TableMatrix
+cpanm RPM::Specfile
 cpanm YAML
 cpanm MD5
+cpanm String::CRC
 cpanm Digest::MD5
 cpanm Digest::SHA1
-cpanm readline --force
-
-
+#cpanm readline --force
 cpanm Bundle::CPAN
 cpanm DBI
 cpanm -f DBD::mysql
+cpanm Net::Address::IP::Local
+cpanm Net::Address::IPv4::Local
 cpanm Net::Telnet
 cpanm Time::HiRes
 cpanm Net::Server
@@ -196,8 +159,10 @@ cpanm Getopt::Long
 cpanm Net::Domain
 cpanm Term::ReadKey
 cpanm Term::ANSIColor
+cpanm Term::ReadLine::Gnu
 cpanm Spreadsheet::XLSX
 cpanm Spreadsheet::Read
+cpanm Spreadsheet::ReadSXC
 cpanm LWP::UserAgent
 cpanm HTML::Entities
 cpanm HTML::Strip
@@ -215,6 +180,66 @@ cpanm Crypt::Eksblowfish::Bcrypt
 cpanm Crypt::RC4
 cpanm Text::CSV
 cpanm Text::CSV_XS
+cpanm -f readline
+
+echo -e "\e[0;32m Verify all cpan-modules installed successfuly \e[0m"
+sleep 2
+cpanm File::HomeDir
+cpanm File::Which
+cpanm CPAN::Meta::Requirements
+cpanm CPAN
+cpanm Tk::TableMatrix
+cpanm RPM::Specfile
+cpanm YAML
+cpanm MD5
+cpanm String::CRC
+cpanm Digest::MD5
+cpanm Digest::SHA1
+#cpanm readline --force
+cpanm Bundle::CPAN
+cpanm DBI
+cpanm DBD::mysql
+cpanm Net::Address::IP::Local
+cpanm Net::Address::IPv4::Local
+cpanm Net::Telnet
+cpanm Time::HiRes
+cpanm Net::Server
+cpanm Switch
+cpanm Mail::Sendmail
+cpanm Unicode::Map
+cpanm Jcode
+cpanm Spreadsheet::WriteExcel
+cpanm OLE::Storage_Lite
+cpanm Proc::ProcessTable
+cpanm IO::Scalar
+cpanm Spreadsheet::ParseExcel
+cpanm Curses
+cpanm Getopt::Long
+cpanm Net::Domain
+cpanm Term::ReadKey
+cpanm Term::ANSIColor
+cpanm Term::ReadLine::Gnu
+cpanm Spreadsheet::XLSX
+cpanm Spreadsheet::Read
+cpanm Spreadsheet::ReadSXC
+cpanm LWP::UserAgent
+cpanm HTML::Entities
+cpanm HTML::Strip
+cpanm HTML::FormatText
+cpanm HTML::TreeBuilder
+cpanm Time::Local
+cpanm MIME::Decoder
+cpanm Mail::POP3Client
+cpanm Mail::IMAPClient
+cpanm Mail::Message
+cpanm IO::Socket::SSL
+cpanm MIME::Base64
+cpanm MIME::QuotedPrint
+cpanm Crypt::Eksblowfish::Bcrypt
+cpanm Crypt::RC4
+cpanm Text::CSV
+cpanm Text::CSV_XS
+cpanm readline
 
 
 #Install Asterisk Perl
@@ -225,10 +250,6 @@ cd asterisk-perl-0.08
 perl Makefile.PL
 make all
 make install 
-
-dnf --enablerepo=powertools install libsrtp-devel -y
-yum install -y elfutils-libelf-devel libedit-devel
-
 
 #Install Lame
 cd /usr/src
