@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>Asterisk SIP/IAX/RTC control ports</short>
+  <description>Asterisk SIP/IAX/RTC control ports</description>
+  <port protocol="udp" port="5060"/> <!-- SIP -->
+  <port protocol="udp" port="4569"/> <!-- IAX -->
+  <port protocol="tcp" port="8089"/> <!-- RTC -->
+</service>
+
