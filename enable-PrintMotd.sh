@@ -5,9 +5,13 @@ mv /etc/motd /etc/motd.bak
 
 cat /etc/ssh/sshd_config | grep "#PrintMotd yes"
 cat /etc/ssh/sshd_config | grep "PrintMotd yes"
+cat /etc/ssh/sshd_config | grep "#PrintMotd no"
+cat /etc/ssh/sshd_config | grep "PrintMotd no"
 
 sed -i "s|#PrintMotd yes|PrintMotd yes|g" /etc/ssh/sshd_config
 #sed -i "s|PrintMotd yes|#PrintMotd yes|g" /etc/ssh/sshd_config
+sed -i "s|#PrintMotd no|PrintMotd yes|g" /etc/ssh/sshd_config
+sed -i "s|PrintMotd no|PrintMotd yes|g" /etc/ssh/sshd_config
 
 rm -rf ~/.hushlogin
 #touch ~/.hushlogin
