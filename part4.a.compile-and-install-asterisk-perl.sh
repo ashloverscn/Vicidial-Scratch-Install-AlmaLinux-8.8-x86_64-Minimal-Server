@@ -10,3 +10,7 @@ perl Makefile.PL
 make all
 make install
 
+dnf --enablerepo=powertools install libsrtp-devel -y
+yum install -y elfutils-libelf-devel libedit-devel
+
+
