@@ -1,0 +1,78 @@
+[DEFAULT]
+ignoreip = 127.0.0.1
+bantime  = 6048000
+findtime  = 600
+maxretry = 5
+backend = systemd
+
+[asterisk-iptables]
+enabled  = true
+filter   = asterisk
+action   = iptables-allports[name=SIP, protocol=all]
+           sendmail[name=VICIBOX-ASTERISK-DETECTOR, dest=yourmail, sender=yourmail]
+logpath  = /var/log/asterisk/messages
+maxretry = 3
+bantime = 6048000
+
+[ssh-iptables]
+enabled  = true
+filter   = sshd
+action   = iptables[name=SSH, port=ssh, protocol=tcp]
+           sendmail[name=VICIBOX-SSH-DETECTOR, dest=yourmail, sender=yourmail]
+logpath  = /var/log/messages
+maxretry = 3
+bantime = 6048000
+
+[apache-tcpwrapper]
+enabled  = true
+filter   = apache-auth
+action   = iptables-allports[name=apache-auth, port=http, protocol=tcp]
+           sendmail[name=VICIBOX-APACHE-DETECTOR, dest=yourmail, sender=yourmail]
+logpath  = /var/log/apache2/error_log
+maxretry = 3
+
+[apache-badbots]
+enabled  = true
+filter   = apache-badbots
+action   = iptables-multiport[name=BadBots, port="http,https"]
+           sendmail[name=VICIBOX-BadBots-DETECTOR, dest=yourmail, sender=yourmail]
+logpath  = /var/log/apache2/error_log
+bantime  = 6048000
+maxretry = 1
+
+[pam-generic]
+mode = normal
+filter = pam-generic
+action   = iptables-allports[name=pam-generic]
+           sendmail[name=VICIBOX-PAM-DETECTOR, dest=yourmail, sender=yourmail]
+bantime  = 6048000
+maxretry = 5
+enabled = true
+
+[phpmyadmin-syslog]
+mode = normal
+filter = phpmyadmin-syslog
+action   = iptables-allports[name=phpmyadmin-syslog, port=https, protocol=tcp]
+           sendmail[name=VICIBOX-PHPMYADMIN-DETECTOR, dest=yourmail, sender=yourmail]
+logpath  = /var/log/apache2/error_log
+bantime  = 6048000
+maxretry = 2
+enabled = true
+
+# Jail for more extended banning of persistent abusers
+# !!! WARNING !!!
+# Make sure that your loglevel specified in fail2ban.conf/.local
+# is not at DEBUG level -- which might then cause fail2ban to fall into
+# an infinite loop constantly feeding itself with non-informativelines
+
+[recidive]
+enabled  = true
+filter   = recidive
+logpath  = /var/log/fail2ban.log*
+action   = iptables-allports[name=recidive, protocol=all]
+           sendmail[name=VICIBOX-BADBOY-DETECTOR, dest=yourmail, sender=yourmail]
+bantime  = 6048000  ; 10 weeks
+#findtime = 60480000   ; 5 hours
+findtime = 43200   ; 12 hours
+maxretry = 5
+
