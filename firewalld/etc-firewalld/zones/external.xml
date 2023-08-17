@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<zone>
+  <short>External</short>
+  <description>For use on external networks. You do not trust the other computers on networks to not harm your computer. Only selected incoming connections are accepted.</description>
+  <masquerade/>
+  <service name="ssh"/>
+  <service name="dhcpv6-client"/>
+  <service name="asterisk"/>
+  <service name="rtp"/>
+  <service name="apache2"/>
+  <service name="apache2-ssl"/>
+  <source ipset="whiteips"/>
+  <source ipset="whitenets"/>
+  <source ipset="dynamiclist"/>
+</zone>
