@@ -1,0 +1,16 @@
+yum -y install  almalinux-logos-httpd-84.5-1.el8.noarch
+yum -y install  augeas-libs-1.12.0-8.el8.x86_64
+yum -y install  httpd-2.4.37-56.module_el8.8.0+3560+c8e5e57e.6.x86_64
+yum -y install  httpd-tools-2.4.37-56.module_el8.8.0+3560+c8e5e57e.6.x86_64
+yum -y install  libsodium-1.0.18-2.el8.x86_64
+yum -y install  mod_http2-1.15.7-8.module_el8.8.0+3554+ec1058a7.3.x86_64
+yum -y install  mod_ssl-1:2.4.37-56.module_el8.8.0+3560+c8e5e57e.6.x86_64
+yum -y install  nginx-filesystem-1:1.14.1-9.module_el8.3.0+2165+af250afe.alma.noarch
+yum -y install  php-7.4.33-8.el8.remi.x86_64
+yum -y install  php-fpm-7.4.33-8.el8.remi.x86_64
+yum -y install  php-sodium-7.4.33-8.el8.remi.x86_64
+yum -y install  python3-augeas-0.5.0-12.el8.noarch
+yum -y install  python3-certbot-apache-1.22.0-1.el8.noarch
+yum -y install  sscg-3.0.0-7.el8.x86_64
+
+package went missing after httpd re install
