@@ -110,7 +110,7 @@ systemctl status httpd.service
 
 echo "Install Perl"
 
-yum -y install perl-CPAN perl-YAML perl-libwww-perl perl-DBI perl-DBD-MySQL perl-GD perl-Env perl-Term-ReadLine-Gnu perl-SelfLoader perl-open.noarch
+yum -y install perl-CPAN perl-YAML perl-libwww-perl perl-DBI perl-DBD-MySQL perl-GD perl-Env perl-Term-ReadLine-Gnu perl-SelfLoader perl-open.noarch install mariadb-server-utils python3-pyparsing python3-pyparsing
 
 #cpan o conf init
 #rm -rf /usr/share/perl5/CPAN/Config.pm
