@@ -59,8 +59,6 @@ grub2-mkconfig -o /boot/grub2/grub.cfg
 
 sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 
-/usr/src/./enable-PrintMotd.sh
-
 yum check-update
 yum -y update
 #yum -y install epel-release
