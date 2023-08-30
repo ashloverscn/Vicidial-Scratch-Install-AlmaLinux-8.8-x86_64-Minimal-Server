@@ -142,6 +142,11 @@ Please Hold while I redirect you! \
 
 sed -i "s/Redirect permanent \/ https:\/\/.*/Redirect permanent \/ https:\/\/$serveripadd\//g" /etc/httpd/conf.d/0000-default.conf
 
+dnf install -y mariadb-server mariadb
+dnf -y install dnf-plugins-core
+dnf config-manager --set-enabled powertools
+systemctl enable mariadb
+
 systemctl enable httpd.service
 systemctl enable mariadb.service
 systemctl start httpd.service
