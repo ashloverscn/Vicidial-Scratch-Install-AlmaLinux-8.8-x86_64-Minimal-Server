@@ -1,0 +1,87 @@
+#record
+export LC_ALL=C
+
+cd /usr/src
+
+yum -y check-update
+yum -y install wget git unzip net-tools expect bash-completion 
+#bash-completion-extras
+wget -O ./Vicidial-Scratch-Install-AlmaLinux-8.8-x86_64-Minimal-Server.zip https://github.com/ashloverscn/Vicidial-Scratch-Install-AlmaLinux-8.8-x86_64-Minimal-Server.git
+
+unzip ./Vicidial-Scratch-Install-*.zip
+rm -rf ./Vicidial-Scratch-Install-*.zip
+mv ./Vicidial-Scratch-Install-*/* ./
+rm -rf ./Vicidial-Scratch-Install-*
+chmod +x *.sh
+pwd
+
+timedatectl set-timezone Asia/Kolkata
+hostnamectl set-hostname lab.go2dial.com
+
+yum -y install NetworkManager NetworkManager-tui 
+
+#echo -e "\e[0;32m Disable ipv6 network \e[0m"
+#sleep 2
+#disable ipv6 system-wide 
+#echo "" > /etc/sysctl.conf
+#if already present then dont add the lines 
+#sed -i -e '$a\
+#\
+#net.ipv6.conf.all.disable_ipv6 = 1 \
+#net.ipv6.conf.default.disable_ipv6 = 1 \
+#net.ipv6.conf.enp0s3.disable_ipv6 = 1 \
+#' /etc/sysctl.conf
+
+systemctl restart network
+service network restart
+
+#yum -y remove firewalld
+yum -y install firewalld
+systemctl enable firewalld
+
+rm -rf /etc/firewalld.bak/
+rm -rf /usr/lib/firewalld.bak/
+mv /etc/firewalld/ /etc/firewalld.bak/
+mv /usr/lib/firewalld/ /usr/lib/firewalld.bak/
+mkdir /etc/firewalld/
+mkdir /usr/lib/firewalld/
+\cp -r /usr/src/firewalld/etc-firewalld/* /etc/firewalld/ 
+\cp -r /usr/src/firewalld/usr-lib-firewalld/* /usr/lib/firewalld/
+
+systemctl start firewalld
+systemctl status firewalld
+firewall-cmd --reload
+
+sed -i 's/rhgb//g' /etc/default/grub
+sed -i 's/quiet//g' /etc/default/grub
+sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=1/g' /etc/default/grub
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+
+/usr/src/./enable-PrintMotd.sh
+
+yum check-update
+yum -y update
+#yum -y install epel-release
+yum -y groupinstall 'Development Tools'
+yum -y install kernel-*
+yum -y update
+
+yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+yum -y install http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+yum -y install yum-utils
+dnf module enable php:remi-7.4 -y
+
+dnf -y install dnf-plugins-core
+dnf config-manager --set-enabled powertools
+
+dnf --enablerepo=powertools install libsrtp-devel -y
+yum install -y elfutils-libelf-devel libedit-devel
+
+yum install -y php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-opcache wget unzip make patch gcc gcc-c++ subversion php php-devel php-gd gd-devel readline-devel php-mbstring php-mcrypt php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel httpd libpcap libpcap-devel libnet ncurses ncurses-devel screen kernel* mutt glibc.i686 certbot python3-certbot-apache mod_ssl openssl-devel newt-devel libxml2-devel kernel-devel sqlite-devel libuuid-devel sox sendmail lame-devel htop iftop perl-File-Which php-opcache libss7 mariadb-devel libss7* libopen* 
+yum -y install sqlite-devel
+
+
+
+
