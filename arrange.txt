@@ -201,16 +201,34 @@ modprobe dahdi_dummy
 cp /etc/dahdi/system.conf.sample /etc/dahdi/system.conf
 /usr/sbin/dahdi_cfg -vvvvvvvvvvvvv
 
-ver=1.6.1
-
-echo -e "\e[0;32m Install LibPri v$ver\e[0m"
-sleep 2
 cd /usr/src
-#http://download.vicidial.com/required-apps/libpri-1.4.10.1.tar.gz
-#http://downloads.asterisk.org/pub/telephony/libpri/releases/libpri-1.6.0.tar.gz
-wget http://downloads.asterisk.org/pub/telephony/libpri/releases/libpri-$ver.tar.gz
+wget http://downloads.asterisk.org/pub/telephony/libpri/releases/libpri-1.6.1.tar.gz
 tar -xvzf libpri-$ver.tar.gz
 cd libpri-$ver
 make
 make install
+
+yum install asterisk -y
+yum install asterisk-* -y
+wget -O asterisk-16.17.0-vici.tar.gz http://download.vicidial.com/beta-apps/asterisk-16.17.0-vici.tar.gz
+tar -xvzf asterisk-16.17.0-vici.tar.gz
+cd asterisk-16.17.0-vici
+
+: ${JOBS:=$(( $(nproc) + $(nproc) / 2 ))}
+./configure --libdir=/usr/lib64 --with-gsm=internal --enable-opus --enable-srtp --with-ssl --enable-asteriskssl --with-pjproject-bundled --with-jansson-bundled
+
+#### asterisk menuselect preconfig
+make menuselect/menuselect menuselect-tree menuselect.makeopts
+#enable app_meetme
+menuselect/menuselect --enable app_meetme menuselect.makeopts
+#enable res_http_websocket
+menuselect/menuselect --enable res_http_websocket menuselect.makeopts
+#enable res_srtp
+menuselect/menuselect --enable res_srtp menuselect.makeopts
+make -j ${JOBS} all
+make install
+make samples
+make config
+
+systemctl enable asterisk && systemctl start asterisk
 
