@@ -284,3 +284,73 @@ systemctl enable asterisk && systemctl start asterisk
 cp /usr/src/asterisk-16.30.0/contrib/init.d/rc.redhat.asterisk /etc/init.d/asterisk
 
 
+\cp -r /usr/src/vici-cron /usr/src/vici-cron.original 
+#wget -O /usr/src/vici-cron https://github.com/ashloverscn/Vicidial-Scratch-Install-CentOS-7-2207-2-x86_64-Minimal-Server/raw/main/vici-cron
+crontab -l > vici-cron.original
+crontab < vici-cron
+
+cd /usr/src
+\cp -r /etc/rc.d/rc.local /etc/rc.d/rc.local.original 
+#wget -O /usr/src/rc.local https://github.com/ashloverscn/Vicidial-Scratch-Install-CentOS-7-2207-2-x86_64-Minimal-Server/raw/main/rc.local
+\cp -r /usr/src/rc.local /etc/rc.d/rc.local
+
+chmod +x /etc/rc.d/rc.local
+systemctl enable rc-local
+systemctl start rc-local
+
+
+cd /usr/src
+wget http://downloads.asterisk.org/pub/telephony/sounds/asterisk-core-sounds-en-ulaw-current.tar.gz
+wget http://downloads.asterisk.org/pub/telephony/sounds/asterisk-core-sounds-en-wav-current.tar.gz
+wget http://downloads.asterisk.org/pub/telephony/sounds/asterisk-core-sounds-en-gsm-current.tar.gz
+wget http://downloads.asterisk.org/pub/telephony/sounds/asterisk-extra-sounds-en-ulaw-current.tar.gz
+wget http://downloads.asterisk.org/pub/telephony/sounds/asterisk-extra-sounds-en-wav-current.tar.gz
+wget http://downloads.asterisk.org/pub/telephony/sounds/asterisk-extra-sounds-en-gsm-current.tar.gz
+wget http://downloads.asterisk.org/pub/telephony/sounds/asterisk-moh-opsound-gsm-current.tar.gz
+wget http://downloads.asterisk.org/pub/telephony/sounds/asterisk-moh-opsound-ulaw-current.tar.gz
+wget http://downloads.asterisk.org/pub/telephony/sounds/asterisk-moh-opsound-wav-current.tar.gz
+
+cd /var/lib/asterisk/sounds
+tar -zxf /usr/src/asterisk-core-sounds-en-gsm-current.tar.gz
+tar -zxf /usr/src/asterisk-core-sounds-en-ulaw-current.tar.gz
+tar -zxf /usr/src/asterisk-core-sounds-en-wav-current.tar.gz
+tar -zxf /usr/src/asterisk-extra-sounds-en-gsm-current.tar.gz
+tar -zxf /usr/src/asterisk-extra-sounds-en-ulaw-current.tar.gz
+tar -zxf /usr/src/asterisk-extra-sounds-en-wav-current.tar.gz
+
+mkdir /var/lib/asterisk/mohmp3
+mkdir /var/lib/asterisk/quiet-mp3
+ln -s /var/lib/asterisk/mohmp3 /var/lib/asterisk/default
+cd /var/lib/asterisk/mohmp3
+tar -zxf /usr/src/asterisk-moh-opsound-gsm-current.tar.gz
+tar -zxf /usr/src/asterisk-moh-opsound-ulaw-current.tar.gz
+tar -zxf /usr/src/asterisk-moh-opsound-wav-current.tar.gz
+rm -f CHANGES*
+rm -f LICENSE*
+rm -f CREDITS*
+cd /var/lib/asterisk/moh
+rm -f CHANGES*
+rm -f LICENSE*
+rm -f CREDITS*
+cd /var/lib/asterisk/sounds
+rm -f CHANGES*
+rm -f LICENSE*
+rm -f CREDITS*
+
+cd /var/lib/asterisk/quiet-mp3
+sox ../mohmp3/macroform-cold_day.wav macroform-cold_day.wav vol 0.25
+sox ../mohmp3/macroform-cold_day.gsm macroform-cold_day.gsm vol 0.25
+sox -t ul -r 8000 -c 1 ../mohmp3/macroform-cold_day.ulaw -t ul macroform-cold_day.ulaw vol 0.25
+sox ../mohmp3/macroform-robot_dity.wav macroform-robot_dity.wav vol 0.25
+sox ../mohmp3/macroform-robot_dity.gsm macroform-robot_dity.gsm vol 0.25
+sox -t ul -r 8000 -c 1 ../mohmp3/macroform-robot_dity.ulaw -t ul macroform-robot_dity.ulaw vol 0.25
+sox ../mohmp3/macroform-the_simplicity.wav macroform-the_simplicity.wav vol 0.25
+sox ../mohmp3/macroform-the_simplicity.gsm macroform-the_simplicity.gsm vol 0.25
+sox -t ul -r 8000 -c 1 ../mohmp3/macroform-the_simplicity.ulaw -t ul macroform-the_simplicity.ulaw vol 0.25
+sox ../mohmp3/reno_project-system.wav reno_project-system.wav vol 0.25
+sox ../mohmp3/reno_project-system.gsm reno_project-system.gsm vol 0.25
+sox -t ul -r 8000 -c 1 ../mohmp3/reno_project-system.ulaw -t ul reno_project-system.ulaw vol 0.25
+sox ../mohmp3/manolo_camp-morning_coffee.wav manolo_camp-morning_coffee.wav vol 0.25
+sox ../mohmp3/manolo_camp-morning_coffee.gsm manolo_camp-morning_coffee.gsm vol 0.25
+sox -t ul -r 8000 -c 1 ../mohmp3/manolo_camp-morning_coffee.ulaw -t ul manolo_camp-morning_coffee.ulaw vol 0.25
+
