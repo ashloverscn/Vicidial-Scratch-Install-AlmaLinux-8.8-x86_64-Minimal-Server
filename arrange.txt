@@ -232,3 +232,5 @@ make config
 
 systemctl enable asterisk && systemctl start asterisk
 
+cp /usr/src/asterisk/asterisk-16.17.0-vici/contrib/init.d/rc.redhat.asterisk /etc/init.d/asterisk
+
