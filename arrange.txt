@@ -19,6 +19,8 @@ yum install -y kernel*
 yum install -y kernel-*
 yum -y remove kernel-debug*
 
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config    
+
 reboot
 
 yum groupinstall "Development Tools" -y
