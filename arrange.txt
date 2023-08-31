@@ -134,3 +134,38 @@ cpanm Text::CSV_XS
 
 
 ########################################################################################################3
+
+#Install Asterisk Perl
+cd /usr/src
+wget http://download.vicidial.com/required-apps/asterisk-perl-0.08.tar.gz
+tar xzf asterisk-perl-0.08.tar.gz
+cd asterisk-perl-0.08
+perl Makefile.PL
+make all
+make install 
+
+dnf --enablerepo=powertools install libsrtp-devel -y
+yum install -y elfutils-libelf-devel libedit-devel
+
+
+#Install Lame
+cd /usr/src
+wget http://downloads.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
+tar -zxf lame-3.99.5.tar.gz
+cd lame-3.99.5
+./configure
+make
+make install
+
+
+#Install Jansson
+cd /usr/src/
+wget https://digip.org/jansson/releases/jansson-2.13.tar.gz
+tar xvzf jansson*
+cd jansson-2.13
+./configure
+make clean
+make
+make install 
+ldconfig
+
