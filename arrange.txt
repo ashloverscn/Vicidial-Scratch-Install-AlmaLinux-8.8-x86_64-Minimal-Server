@@ -65,11 +65,60 @@ touch /var/log/mysqld/slow-queries.log
 chown -R mysql:mysql /var/log/mysqld
 systemctl restart mariadb
 
+cd /usr/src/
+\cp -r /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.original
+echo "" > /etc/httpd/conf/httpd.conf
+#wget -O /usr/src/httpd.conf https://github.com/ashloverscn/Vicidial-Scratch-Install-CentOS-7-2207-2-x86_64-Minimal-Server/raw/main/httpd.conf
+\cp -r ./httpd.conf /etc/httpd/conf/httpd.conf
+#\cp -r /usr/src/httpd.conf /etc/httpd/conf/httpd.conf
+
+cd /usr/src
+rm -rf /etc/httpd/ssl.crt/vicibox.crt
+rm -rf /etc/httpd/ssl.key/vicibox.key
+mkdir /etc/httpd/ssl.crt
+mkdir /etc/httpd/ssl.key
+\cp -r ./vicibox.crt /etc/httpd/ssl.crt/vicibox.crt
+\cp -r ./vicibox.key /etc/httpd/ssl.key/vicibox.key
+
+cd /usr/src
+\cp -r /etc/httpd/conf.d/0000-default.conf /etc/httpd/conf.d/0000-default.conf.original
+\cp -r /etc/httpd/conf.d/0000-default-ssl.conf /etc/httpd/conf.d/0000-default-ssl.conf.original
+echo "" > /etc/httpd/conf.d/0000-default.conf
+echo "" > /etc/httpd/conf.d/0000-default-ssl.conf
+#wget -O /usr/src/httpd.conf https://github.com/ashloverscn/Vicidial-Scratch-Install-CentOS-7-2207-2-x86_64-Minimal-Server/raw/main/0000-default.conf
+#wget -O /usr/src/httpd.conf https://github.com/ashloverscn/Vicidial-Scratch-Install-CentOS-7-2207-2-x86_64-Minimal-Server/raw/main/0000-default-ssl.conf
+\cp -r ./0000-default.conf /etc/httpd/conf.d/0000-default.conf
+\cp -r ./0000-default-ssl.conf /etc/httpd/conf.d/0000-default-ssl.conf
+#\cp -r /usr/src/0000-default.conf /etc/httpd/conf.d/0000-default.conf
+#\cp -r /usr/src/0000-default-ssl.conf /etc/httpd/conf.d/0000-default-ssl.conf
+mv /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.bak
+
+sed -i "s/Redirect permanent \/ https:\/\/.*/Redirect permanent \/ https:\/\/$serveripadd\//g" /etc/httpd/conf.d/0000-default.conf
+
+touch /var/www/html/index.html
+echo "" > /var/www/html/index.html
+sed -i -e '$a\
+<META HTTP-EQUIV=REFRESH CONTENT="1; URL=/vicidial/welcome.php"> \
+Please Hold while I redirect you! \
+' /var/www/html/index.html
+
+
+
 systemctl enable httpd.service
 systemctl enable mariadb.service
+systemctl start httpd.service
 systemctl restart httpd.service
+systemctl start mariadb.service
 systemctl restart mariadb.service
-
+#systemctl status mariadb.service
+#systemctl status httpd.service
+systemctl enable asterisk.service
+systemctl start asterisk.service
+systemctl restart asterisk.service
+modprobe dahdi
+systemctl enable dahdi.service
+systemctl start dahdi.service
+systemctl restart dahdi.service
 
 ##################################### CPAN #########################################
 yum install -y perl-CPAN perl-YAML perl-libwww-perl perl-DBI perl-DBD-MySQL perl-GD perl-Env perl-Term-ReadLine-Gnu perl-SelfLoader perl-open.noarch
