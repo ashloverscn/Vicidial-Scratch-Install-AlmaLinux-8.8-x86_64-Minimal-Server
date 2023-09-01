@@ -1,0 +1,30 @@
+
+
+Thank you for installing ViciBox Server
+
+To install or reinstall again visit :
+  https://github.com/ashloverscn/Vicidial-Scratch-Install-CentOS-7-2207-2-x86_64-Minimal-Server
+
+This software is available for free download at http://www.vicibox.com.
+If you paid for this software you have been ripped off. Please report any
+fraud or abuses of this software to abuse@vicidial.com. Please report any
+bugs on the forum at http://www.vicidial.org/VICIDIALforum/
+
+To configure the network settings type :
+  nmtui
+
+To change the server IP in the database type using the stock IP :
+  /usr/share/astguiclient/ADMIN_update_server_ip.pl --old-server_ip=10.10.10.15
+
+To change the server IP in the database type :
+  /usr/share/astguiclient/ADMIN_update_server_ip.pl
+
+Official paid-for ViciDial support is available at :
+  http://www.vicidial.com
+
+Free community-based ViciDial Support is available at :
+  http://www.vicidial.org/VICIDIALforum
+
+The ViciBox manual is available at :
+  https://docs.vicibox.com/
+
