@@ -1,0 +1,1 @@
+# Vicidial-Scratch-Install-AlmaLinux-8.8-x86_64-Minimal-Server
