@@ -4,7 +4,7 @@ echo "Vicidial installation AlmaLinux"
 
 export LC_ALL=C
 
-yum install git -y
+yum install wget git -y
 
 hostnamectl set-hostname lab.go2dial.com
 timedatectl set-timezone Asia/Kolkata
