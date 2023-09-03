@@ -25,7 +25,7 @@ else
 fi
 
 #sed -i 's|(netdev, \&wc->napi, \&wctc4xxp_poll, 64);|(netdev, \&wc->napi, \&wctc4xxp_poll);|g' /usr/src/dahdi-linux-complete-$ver%2B$ver/linux/drivers/dahdi/wctc4xxp/base.c
-sudo sed -i 's|, 64);|);|g' /usr/src/dahdi-linux-complete-$ver%2B$ver/linux/drivers/dahdi/wctc4xxp/base.c
+sudo sed -i 's|, 64);|);|g' /usr/src/dahdi-linux-complete-$ver+$ver/linux/drivers/dahdi/wctc4xxp/base.c
 sed -i 's|<linux/pci-aspm.h>|<linux/pci.h>|g' /usr/src/dahdi-linux-complete-$ver%2B$ver/linux/include/dahdi/kernel.h
 
 make all
