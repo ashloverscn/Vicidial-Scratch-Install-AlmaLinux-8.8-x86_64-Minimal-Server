@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>ViciBox Dynamic Portal SSL</short>
+  <description>Allows remote agents to authenticate in a portal to access ViciDial</description>
+  <port protocol="tcp" port="446"/>
+</service>
+
