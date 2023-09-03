@@ -1,66 +1,41 @@
 #!/bin/sh
 
-echo -e "\e[0;32m Install epel-release-latest-7 repo and Install RemiRepo PHP7 \e[0m"
+echo -e "\e[0;32m Install DevTools and epel-release-latest-8 repo and Install RemiRepo PHP7 and powertools \e[0m"
 sleep 2
 
-#yum -y remove https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+yum groupinstall "Development Tools" -y
 
-#yum -y remove http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 
-#yum -y remove yum-utils
-
-yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-
-yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
-
+yum -y install http://rpms.remirepo.net/enterprise/remi-release-8.rpm
 yum -y install yum-utils
+dnf module enable php:remi-7.4 -y
 
-yum-config-manager --enable remi-php74
+dnf -y install dnf-plugins-core
+
+dnf config-manager --set-enabled powertools
 
 echo -e "\e[0;32m Configure fail2ban for vicidial with jail.local file \e[0m"
 sleep 2
 
 /usr/src/./install-fail2ban.sh
 
-echo -e "\e[0;32m Add MariaDB Repo \e[0m"
-sleep 2
-
-cd /usr/src
-\cp -r /etc/yum.repos.d/MariaDB.repo /etc/yum.repos.d/MariaDB.repo.original
-touch /etc/yum.repos.d/MariaDB.repo
-echo "" > /etc/yum.repos.d/MariaDB.repo
-#wget -O /usr/src/MariaDB.repo https://github.com/ashloverscn/Vicidial-Scratch-Install-AlmaLinux-8.8-x86_64-Minimal-Server/raw/main/MariaDB.repo
-\cp -r ./MariaDB.repo /etc/yum.repos.d/MariaDB.repo
-#\cp -r /usr/src/MariaDB.repo /etc/yum.repos.d/MariaDB.repo
-
-
 echo -e "\e[0;32m Install Compiler\Build Tools \e[0m"
 sleep 2
 
-#yum -y remove make patch gcc perl-Term-ReadLine-Gnu gcc-c++ subversion php mod_ssl php-devel php-gd gd-devel php-mbstring php-mcrypt php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc php-opcache curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel httpd libpcap libpcap-devel libnet ncurses ncurses-devel screen mysql-devel ntp mutt glibc.i686 wget nano unzip sipsak sox libss7* libopen* openssl libsrtp libsrtp-devel unixODBC unixODBC-devel libtool-ltdl libtool-ltdl-devel libedit libedit-devel htop iftop
-
-#yum -y remove make make patch gcc perl-Term-ReadLine-Gnu gcc-c++ subversion php mod_ssl php-devel php-gd gd-devel php-mbstring php-mcrypt php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel httpd libpcap libpcap-devel libnet ncurses ncurses-devel screen mysql-devel ntp mutt glibc.i686 wget nano unzip sipsak sox libss7* libopen* openssl libsrtp libsrtp-devel unixODBC unixODBC-devel libtool-ltdl libtool-ltdl-devel libedit libedit-devel
-
-yum -y install make patch gcc perl-Term-ReadLine-Gnu gcc-c++ subversion php mod_ssl php-devel php-gd gd-devel php-mbstring php-mcrypt php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc php-opcache curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel httpd libpcap libpcap-devel libnet ncurses ncurses-devel screen mysql-devel ntp mutt glibc.i686 wget nano unzip sipsak sox libss7* libopen* openssl libsrtp libsrtp-devel unixODBC unixODBC-devel libtool-ltdl libtool-ltdl-devel libedit libedit-devel htop iftop
-
-yum -y install make patch gcc perl-Term-ReadLine-Gnu gcc-c++ subversion php mod_ssl php-devel php-gd gd-devel php-mbstring php-mcrypt php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel httpd libpcap libpcap-devel libnet ncurses ncurses-devel screen mysql-devel ntp mutt glibc.i686 wget nano unzip sipsak sox libss7* libopen* openssl libsrtp libsrtp-devel unixODBC unixODBC-devel libtool-ltdl libtool-ltdl-devel libedit libedit-devel
+#yum -y install make patch gcc perl-Term-ReadLine-Gnu gcc-c++ subversion php mod_ssl php-devel php-gd gd-devel php-mbstring php-mcrypt php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc php-opcache curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel httpd libpcap libpcap-devel libnet ncurses ncurses-devel screen mysql-devel ntp mutt glibc.i686 wget nano unzip sipsak sox libss7* libopen* openssl libsrtp libsrtp-devel unixODBC unixODBC-devel libtool-ltdl libtool-ltdl-devel libedit libedit-devel htop iftop
+#yum -y install make patch gcc perl-Term-ReadLine-Gnu gcc-c++ subversion php mod_ssl php-devel php-gd gd-devel php-mbstring php-mcrypt php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel httpd libpcap libpcap-devel libnet ncurses ncurses-devel screen mysql-devel ntp mutt glibc.i686 wget nano unzip sipsak sox libss7* libopen* openssl libsrtp libsrtp-devel unixODBC unixODBC-devel libtool-ltdl libtool-ltdl-devel libedit libedit-devel
+yum install -y php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-opcache wget unzip make patch gcc gcc-c++ subversion php php-devel php-gd gd-devel readline-devel php-mbstring php-mcrypt php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel httpd libpcap libpcap-devel libnet ncurses ncurses-devel screen mutt glibc.i686 certbot python3-certbot-apache mod_ssl openssl-devel newt-devel libxml2-devel kernel-devel kernel-headers sqlite-devel libuuid-devel sox sendmail lame-devel htop iftop perl-File-Which php-opcache libss7 mariadb-devel libss7* libopen* 
 
 yum -y update
 
 echo -e "\e[0;32m Install and configure MariaDB\SQL \e[0m"
 sleep 2
 
-#yum -y remove sqlite-devel
-
-#yum -y remove mariadb-server mariadb MariaDB-compat
-
 yum -y install sqlite-devel
-
-yum -y install mariadb-server mariadb 
-
+dnf install -y mariadb-server mariadb
 yum -y install sqlite-devel
-
-yum -y install mariadb-server mariadb
+dnf install -y mariadb-server mariadb
 
 yum -y update
 
