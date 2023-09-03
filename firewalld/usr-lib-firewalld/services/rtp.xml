@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>Asterisk RTP Ports</short>
+  <description>RTP ports for Asterisk</description>
+  <port protocol="udp" port="10000-20000"/> <!-- RTP Port Range -->
+</service>
+
