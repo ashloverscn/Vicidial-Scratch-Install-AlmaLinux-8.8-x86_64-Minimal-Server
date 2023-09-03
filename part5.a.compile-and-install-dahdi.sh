@@ -19,14 +19,14 @@ then
 	tar -xvzf dahdi-linux-complete-2.3.0.1+2.3.0.tar.gz
 	cd dahdi-linux-complete-2.3.0.1+2.3.0
 else
-	wget -O dahdi-linux-complete-$ver+$ver.tar.gz https://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/dahdi-linux-complete-$ver%2B$ver.tar.gz
+	wget -O dahdi-linux-complete-$ver+$ver.tar.gz https://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/dahdi-linux-complete-$ver+$ver.tar.gz
 	tar -xvzf dahdi-linux-complete-$ver+$ver.tar.gz
 	cd dahdi-linux-complete-$ver+$ver
 fi
 
-#sed -i 's|(netdev, \&wc->napi, \&wctc4xxp_poll, 64);|(netdev, \&wc->napi, \&wctc4xxp_poll);|g' /usr/src/dahdi-linux-complete-$ver%2B$ver/linux/drivers/dahdi/wctc4xxp/base.c
+#sed -i 's|(netdev, \&wc->napi, \&wctc4xxp_poll, 64);|(netdev, \&wc->napi, \&wctc4xxp_poll);|g' /usr/src/dahdi-linux-complete-$ver+$ver/linux/drivers/dahdi/wctc4xxp/base.c
 sudo sed -i 's|, 64);|);|g' /usr/src/dahdi-linux-complete-$ver+$ver/linux/drivers/dahdi/wctc4xxp/base.c
-sed -i 's|<linux/pci-aspm.h>|<linux/pci.h>|g' /usr/src/dahdi-linux-complete-$ver%2B$ver/linux/include/dahdi/kernel.h
+sed -i 's|<linux/pci-aspm.h>|<linux/pci.h>|g' /usr/src/dahdi-linux-complete-$ver+$ver/linux/include/dahdi/kernel.h
 
 make all
 make install
