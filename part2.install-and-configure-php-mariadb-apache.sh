@@ -12,8 +12,10 @@ yum -y install yum-utils
 dnf module enable php:remi-7.4 -y
 
 dnf -y install dnf-plugins-core
-
 dnf config-manager --set-enabled powertools
+dnf --enablerepo=powertools install libsrtp-devel -y
+yum install -y elfutils-libelf-devel libedit-devel
+
 
 echo -e "\e[0;32m Configure fail2ban for vicidial with jail.local file \e[0m"
 sleep 2
