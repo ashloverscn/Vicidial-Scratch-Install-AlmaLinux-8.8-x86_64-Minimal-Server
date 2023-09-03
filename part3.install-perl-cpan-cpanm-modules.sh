@@ -12,7 +12,7 @@ perl -MCPAN -e 'my $c = "CPAN::HandleConfig"; $c->load(doit => 1, autoconfig => 
 
 cd /usr/bin/
 #curl -LOk http://xrl.us/cpanm
-#curl -LOk https://github.com/ashloverscn/Vicidial-Scratch-Install-CentOS-7-2207-2-x86_64-Minimal-Server/raw/main/cpanm
+#curl -LOk https://github.com/ashloverscn/Vicidial-Scratch-Install-AlmaLinux-8.8-x86_64-Minimal-Server/raw/main/cpanm
 \cp -r /usr/src/cpanm ./cpanm
 cpan App::cpanminus 
 #cpanm --installdeps .
