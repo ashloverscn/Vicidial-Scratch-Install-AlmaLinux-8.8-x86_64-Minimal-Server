@@ -43,7 +43,7 @@ sleep 2
 cd /usr/src/
 \cp -r /etc/astguiclient.conf /etc/astguiclient.conf.original
 echo "" > /etc/astguiclient.conf
-#wget -O /usr/src/astguiclient.conf https://github.com/ashloverscn/Vicidial-Scratch-Install-CentOS-7-2207-2-x86_64-Minimal-Server/raw/main/astguiclient.conf
+#wget -O /usr/src/astguiclient.conf https://github.com/ashloverscn/Vicidial-Scratch-Install-AlmaLinux-8.8-x86_64-Minimal-Server/raw/main/astguiclient.conf
 \cp -r ./astguiclient.conf /etc/astguiclient.conf
 
 sed -i 's/VARserver_ip => .*/VARserver_ip => $serveripadd/' /etc/astguiclient.conf
