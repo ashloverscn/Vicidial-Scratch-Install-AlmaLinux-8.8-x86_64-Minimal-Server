@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ipset type="hash:ip">
+  <short>VoIPBlackList</short>
+  <description>VoIPBL.org Blacklist</description>
+  <option name="maxelem" value="262144"/>
+</ipset>
