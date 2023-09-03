@@ -12,5 +12,3 @@ make clean
 make
 make install
 ldconfig
-
-

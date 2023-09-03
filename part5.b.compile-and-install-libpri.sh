@@ -12,4 +12,3 @@ cd libpri-$ver
 make
 make install
 
-

@@ -10,4 +10,3 @@ cd lame-$ver
 make
 make install
 
-

@@ -153,4 +153,3 @@ systemctl start mariadb.service
 systemctl status mariadb.service
 systemctl status httpd.service
 
-
