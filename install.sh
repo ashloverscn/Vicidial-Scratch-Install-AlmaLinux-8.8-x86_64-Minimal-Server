@@ -34,7 +34,7 @@ cd /usr/src
 
 yum -y check-update
 
-yum -y install wget git unzip net-tools expect bash-completion bash-completion-extras
+yum -y install wget git unzip net-tools nano expect bash-completion bash-completion-*
 
 wget -O ./Vicidial-Scratch-Install-AlmaLinux-8.8-x86_64-Minimal-Server.zip https://github.com/ashloverscn/Vicidial-Scratch-Install-AlmaLinux-8.8-x86_64-Minimal-Server/archive/refs/heads/main.zip
 
