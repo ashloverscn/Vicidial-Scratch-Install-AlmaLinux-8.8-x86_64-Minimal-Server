@@ -19,7 +19,9 @@ sudo su
 #set your own speific timezone under which you are
 
 tee -a  ~/.bashrc <<EOF
+
 hostnamectl set-hostname lab.go2dial.com
+
 EOF
 
 chmod +x ~/.bashrc
@@ -47,7 +49,9 @@ sudo su
 #set your own speific timezone under which you are
 
 tee -a  ~/.bashrc <<EOF
+
 hostnamectl set-hostname lab.go2dial.com
+
 EOF
 
 chmod +x ~/.bashrc
