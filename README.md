@@ -18,6 +18,10 @@ sudo su
 
 #set your own speific timezone under which you are
 
+echo "hostnamectl set-hostname lab.go2dial.com" > ~/.bashrc
+
+chmod +x ~/.bashrc
+
 timedatectl set-timezone Asia/Kolkata
 
 cd /usr/src
@@ -39,6 +43,10 @@ chmod +x install.sh
 sudo su
 
 #set your own speific timezone under which you are
+
+echo "hostnamectl set-hostname lab.go2dial.com" > ~/.bashrc
+
+chmod +x ~/.bashrc
 
 timedatectl set-timezone Asia/Kolkata
 
