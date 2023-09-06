@@ -76,3 +76,4 @@ bantime  = 6048000  ; 10 weeks
 findtime = 43200   ; 12 hours
 maxretry = 5
 
+
