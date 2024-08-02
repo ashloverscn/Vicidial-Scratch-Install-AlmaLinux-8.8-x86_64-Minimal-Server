@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo -e "\e[0;32m Vicidial-Scratch-Install-AlmaLinux-8.8-x86_64-Minimal-Server \e[0m"
+echo -e "\e[0;32m Vicidial-Scratch-Install-AlmaLinux-9.4-x86_64-Minimal-Server \e[0m"
 echo -e "\e[0;32m Part0 System-HW-Prepration \e[0m"
 sleep 5
 
