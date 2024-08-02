@@ -8,5 +8,6 @@
   <service name="rtp"/>
   <service name="apache2"/>
   <service name="apache2-ssl"/>
+  <service name="cockpit"/>
   <interface name="eth0"/>
 </zone>
