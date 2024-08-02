@@ -1,20 +1,21 @@
 #!/bin/sh
 
-echo -e "\e[0;32m Install DevTools and epel-release-latest-8 repo and Install RemiRepo PHP7 and powertools \e[0m"
+echo -e "\e[0;32m Install DevTools and epel-release-latest-9 repo and Install RemiRepo PHP7 and powertools \e[0m"
 sleep 2
 
-yum groupinstall "Development Tools" -y
+dnf groupinstall "Development Tools" -y
 
-yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
+dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm -y
 
-yum -y install http://rpms.remirepo.net/enterprise/remi-release-8.rpm
-yum -y install yum-utils
+dnf install https://rpms.remirepo.net/enterprise/remi-release-9.rpm -y
+dnf -y install yum-utils
 dnf module enable php:remi-7.4 -y
 
 dnf -y install dnf-plugins-core
 dnf config-manager --set-enabled powertools
 dnf --enablerepo=powertools install libsrtp-devel -y
-yum install -y elfutils-libelf-devel libedit-devel
+dnf install -y elfutils-libelf-devel libedit-devel
 
 
 echo -e "\e[0;32m Configure fail2ban for vicidial with jail.local file \e[0m"
