@@ -43,7 +43,7 @@ mkdir /usr/lib/firewalld/
 \cp -r /usr/src/firewalld/usr-lib-firewalld/* /usr/lib/firewalld/
 
 systemctl start firewalld
-systemctl status firewalld
+systemctl status firewalld | head -n 18
 firewall-cmd --reload
 
 echo -e "\e[0;32m Enable cockpit root access and port 9090 in firewalld zone public \e[0m"
