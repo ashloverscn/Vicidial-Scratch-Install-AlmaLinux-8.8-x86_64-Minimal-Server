@@ -27,21 +27,21 @@ sleep 2
 echo -e "\e[0;32m Install Compiler\Build Tools \e[0m"
 sleep 2
 
-#dnf -y install install make patch gcc perl-Term-ReadLine-Gnu gcc-c++ subversion php mod_ssl php-devel php-gd gd-devel php-mbstring php-mcrypt php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc php-opcache curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel httpd libpcap libpcap-devel libnet ncurses ncurses-devel screen mysql-devel ntp mutt glibc.i686 wget nano unzip sipsak sox libss7* libopen* openssl libsrtp libsrtp-devel unixODBC unixODBC-devel libtool-ltdl libtool-ltdl-devel libedit libedit-devel htop iftop
-#dnf -y install make patch gcc perl-Term-ReadLine-Gnu gcc-c++ subversion php mod_ssl php-devel php-gd gd-devel php-mbstring php-mcrypt php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel httpd libpcap libpcap-devel libnet ncurses ncurses-devel screen mysql-devel ntp mutt glibc.i686 wget nano unzip sipsak sox libss7* libopen* openssl libsrtp libsrtp-devel unixODBC unixODBC-devel libtool-ltdl libtool-ltdl-devel libedit libedit-devel
-dnf -y install php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-opcache wget unzip make patch gcc gcc-c++ subversion php php-devel php-gd gd-devel readline-devel php-mbstring php-mcrypt php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel httpd libpcap libpcap-devel libnet ncurses ncurses-devel screen mutt glibc.i686 certbot python3-certbot-apache mod_ssl openssl-devel newt-devel libxml2-devel kernel-devel kernel-headers sqlite-devel libuuid-devel sox sendmail lame lame-devel htop iftop perl-File-Which php-opcache libss7 mariadb-devel libss7* libopen* 
+#dnf -y install --skip-broken install make patch gcc perl-Term-ReadLine-Gnu gcc-c++ subversion php mod_ssl php-devel php-gd gd-devel php-mbstring php-mcrypt php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc php-opcache curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel httpd libpcap libpcap-devel libnet ncurses ncurses-devel screen mysql-devel ntp mutt glibc.i686 wget nano unzip sipsak sox libss7* libopen* openssl libsrtp libsrtp-devel unixODBC unixODBC-devel libtool-ltdl libtool-ltdl-devel libedit libedit-devel htop iftop
+#dnf -y install --skip-broken make patch gcc perl-Term-ReadLine-Gnu gcc-c++ subversion php mod_ssl php-devel php-gd gd-devel php-mbstring php-mcrypt php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel httpd libpcap libpcap-devel libnet ncurses ncurses-devel screen mysql-devel ntp mutt glibc.i686 wget nano unzip sipsak sox libss7* libopen* openssl libsrtp libsrtp-devel unixODBC unixODBC-devel libtool-ltdl libtool-ltdl-devel libedit libedit-devel
+dnf -y install --skip-broken php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-opcache wget unzip make patch gcc gcc-c++ subversion php php-devel php-gd gd-devel readline-devel php-mbstring php-mcrypt php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel httpd libpcap libpcap-devel libnet ncurses ncurses-devel screen mutt glibc.i686 certbot python3-certbot-apache mod_ssl openssl-devel newt-devel libxml2-devel kernel-devel kernel-headers sqlite-devel libuuid-devel sox sendmail lame lame-devel htop iftop perl-File-Which php-opcache libss7 mariadb-devel libss7* libopen* 
 
-yum -y update
+dnf -y update
 
 echo -e "\e[0;32m Install and configure MariaDB\SQL \e[0m"
 sleep 2
 
-yum -y install sqlite-devel
+dnf -y install sqlite-devel
 dnf install -y mariadb-server mariadb
-yum -y install sqlite-devel
+dnf -y install sqlite-devel
 dnf install -y mariadb-server mariadb
 
-yum -y update
+dnf -y update
 
 echo -e "\e[0;32m Create mysql Log files \e[0m"
 sleep 2
