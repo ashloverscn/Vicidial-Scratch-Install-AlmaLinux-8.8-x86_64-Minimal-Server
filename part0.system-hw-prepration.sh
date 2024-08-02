@@ -9,7 +9,7 @@ export LC_ALL=C
 # part 0
 echo -e "\e[0;32m Install NetworkManager Cli Gui \e[0m"
 sleep 2
-yum -y install NetworkManager NetworkManager-tui 
+dnf -y install NetworkManager NetworkManager-tui 
 
 #echo -e "\e[0;32m Disable ipv6 network \e[0m"
 #sleep 2
@@ -29,8 +29,8 @@ service network restart
 echo -e "\e[0;32m Configure vicidial firewalld with xml config files \e[0m"
 sleep 2
 
-#yum -y remove firewalld
-yum -y install firewalld
+#dnf -y remove firewalld
+dnf -y install firewalld
 systemctl enable firewalld
 
 rm -rf /etc/firewalld.bak/
