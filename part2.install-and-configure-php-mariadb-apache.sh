@@ -18,6 +18,12 @@ dnf config-manager --set-enabled powertools
 dnf --enablerepo=powertools install libsrtp-devel -y
 dnf install -y elfutils-libelf-devel libedit-devel
 
+dnf -y copr enable irontec/sngrep
+dnf -y install sngrep
+
+dnf -y --enablerepo=crb install libsrtp-devel
+dnf config-manager --set-enabled crb
+dnf -y install libsrtp-devel
 
 echo -e "\e[0;32m Configure fail2ban for vicidial with jail.local file \e[0m"
 sleep 2
