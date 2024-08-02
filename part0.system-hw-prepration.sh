@@ -48,8 +48,12 @@ firewall-cmd --reload
 
 echo -e "\e[0;32m Enable cockpit port 9090 in firewalld \e[0m"
 sleep 2
+systemctl enable --now cockpit.socket
 firewall-cmd --add-service=cockpit
 firewall-cmd --add-service=cockpit --permanent
+firewall-cmd --permanent --zone=public --add-service=cockpit
+systemctl restart firewalld
+firewall-cmd --reload
 
 echo -e "\e[0;32m Enable grub verbose boot \e[0m"
 sleep 2
