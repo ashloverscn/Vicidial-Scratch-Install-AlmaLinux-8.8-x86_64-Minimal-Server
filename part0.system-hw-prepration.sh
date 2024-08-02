@@ -42,14 +42,14 @@ mkdir /usr/lib/firewalld/
 \cp -r /usr/src/firewalld/etc-firewalld/* /etc/firewalld/ 
 \cp -r /usr/src/firewalld/usr-lib-firewalld/* /usr/lib/firewalld/
 
+systemctl start firewalld
+systemctl status firewalld
+firewall-cmd --reload
+
 echo -e "\e[0;32m Enable cockpit port 9090 in firewalld \e[0m"
 sleep 2
 firewall-cmd --add-service=cockpit
 firewall-cmd --add-service=cockpit --permanent
-
-systemctl start firewalld
-systemctl status firewalld
-firewall-cmd --reload
 
 echo -e "\e[0;32m Enable grub verbose boot \e[0m"
 sleep 2
