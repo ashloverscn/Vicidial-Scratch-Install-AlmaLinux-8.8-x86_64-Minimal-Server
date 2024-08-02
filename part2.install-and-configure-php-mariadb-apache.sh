@@ -11,6 +11,7 @@ dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.r
 dnf install https://rpms.remirepo.net/enterprise/remi-release-9.rpm -y
 dnf -y install yum-utils
 dnf module enable php:remi-7.4 -y
+dnf module enable mariadb:10.5 -y
 
 dnf -y install dnf-plugins-core
 dnf config-manager --set-enabled powertools
