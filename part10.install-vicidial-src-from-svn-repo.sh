@@ -11,7 +11,8 @@ echo -e "\e[0;32m Clone vicidial from  SVN \e[0m"
 sleep 2
 mkdir /usr/src/astguiclient
 cd /usr/src/astguiclient
-svn checkout svn://svn.eflo.net/agc_2-X/trunk
+#svn checkout svn://svn.eflo.net/agc_2-X/trunk
+svn checkout svn://svn.eflo.net:3690/agc_2-X/trunk
 cd /usr/src/astguiclient/trunk
 
 echo -e "\e[0;32m Setup dummy DB for astguiclient \e[0m"
