@@ -9,8 +9,8 @@ yum -y update
 yum -y install bash-completion bash-completion-extras
 yum -y install kernel
 yum -y install kernel*
-yum -y install kernel-*
-yum -y remove kernel-debug*
+yum -y install kernel-* --exclude=kernel-debug* -y
+#yum -y remove kernel-debug*
 
 echo -e "\e[0;32m Disable SeLinux \e[0m"
 sleep 2
