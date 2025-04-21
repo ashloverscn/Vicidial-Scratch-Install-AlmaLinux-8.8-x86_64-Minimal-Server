@@ -25,6 +25,7 @@ tar -zxf /usr/src/asterisk-extra-sounds-en-wav-current.tar.gz
 mkdir /var/lib/asterisk/mohmp3
 mkdir /var/lib/asterisk/quiet-mp3
 ln -s /var/lib/asterisk/mohmp3 /var/lib/asterisk/default
+
 cd /var/lib/asterisk/mohmp3
 tar -zxf /usr/src/asterisk-moh-opsound-gsm-current.tar.gz
 tar -zxf /usr/src/asterisk-moh-opsound-ulaw-current.tar.gz
@@ -32,14 +33,18 @@ tar -zxf /usr/src/asterisk-moh-opsound-wav-current.tar.gz
 rm -f CHANGES*
 rm -f LICENSE*
 rm -f CREDITS*
+
 cd /var/lib/asterisk/moh
 rm -f CHANGES*
 rm -f LICENSE*
 rm -f CREDITS*
+
 cd /var/lib/asterisk/sounds
 rm -f CHANGES*
 rm -f LICENSE*
 rm -f CREDITS*
+
+yum -y in sox
 
 cd /var/lib/asterisk/quiet-mp3
 sox ../mohmp3/macroform-cold_day.wav macroform-cold_day.wav vol 0.25
