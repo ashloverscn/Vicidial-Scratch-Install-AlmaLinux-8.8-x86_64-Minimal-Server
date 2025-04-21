@@ -49,6 +49,7 @@ make -j ${JOBS} all
 make install
 make samples
 make config
+sed -i 's|noload = chan_sip.so|;noload = chan_sip.so|g' /etc/asterisk/modules.conf
 
 systemctl enable asterisk && systemctl start asterisk
 
