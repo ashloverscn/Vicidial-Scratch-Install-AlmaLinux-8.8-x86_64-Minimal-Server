@@ -49,8 +49,6 @@ echo "" > /etc/astguiclient.conf
 
 sed -i 's/VARserver_ip => .*/VARserver_ip => $serveripadd/' /etc/astguiclient.conf
 
-perl install.pl --no-prompt --copy_sample_conf_files=Y
-
 #Secure Manager 
 sed -i s/0.0.0.0/127.0.0.1/g /etc/asterisk/manager.conf
 
