@@ -9,7 +9,7 @@ subdr=required-apps
 ver=18.21.0
 oem=1
 
-echo -e "\e[0;32m Install Asterisk v$ver$oem \e[0m"
+echo -e "\e[0;32m Install Asterisk v$ver \e[0m"
 sleep 2
 cd /usr/src
 #rm -rf asterisk*
