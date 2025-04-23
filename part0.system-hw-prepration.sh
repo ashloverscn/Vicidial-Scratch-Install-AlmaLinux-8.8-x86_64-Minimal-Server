@@ -53,6 +53,8 @@ yum -y install cockpit cockpit-storaged cockpit-navigator
 sed -i s/root/"#root"/g /etc/cockpit/disallowed-users
 systemctl enable --now cockpit.socket
 firewall-cmd --permanent --zone=public --add-service=cockpit
+firewall-cmd --permanent --add-service=cockpit
+firewall-cmd --permanent --add-port=9090/tcp
 firewall-cmd --reload
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
