@@ -29,6 +29,4 @@ RemainAfterExit=yes
 WantedBy=multi-user.target
 EOF
 
-sudo sed -i 's|exit 0|### exit 0|g' /etc/rc.d/rc.local
-
 
