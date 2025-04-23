@@ -130,7 +130,16 @@ systemctl daemon-reload
 sudo systemctl enable rc-local.service
 sudo systemctl start rc-local.service
 
+## fix server external ip error
+sed -i 's/SERVER_EXTERNAL_IP/0.0.0.0/' /etc/asterisk/pjsip.conf
+sed -i 's/SERVER_EXTERNAL_IP/0.0.0.0/' /etc/asterisk/sip.conf
 
+## fix synchronization issue even when times match everywhere on the system
+echo "explicit_defaults_for_timestamp = Off" >> /etc/my.cnf.d/general.cnf
+systemctl restart mariadb.service
 
+## create missing files
+cd /usr/src/astguiclient/trunk
+perl install.pl --copy_sample_conf_files --no-prompt
 
 
