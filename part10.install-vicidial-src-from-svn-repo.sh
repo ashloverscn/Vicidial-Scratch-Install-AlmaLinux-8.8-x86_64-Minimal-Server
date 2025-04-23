@@ -91,5 +91,32 @@ mv -f ip_relay2 /usr/local/bin/ip_relay
 #mv codec_g729-ast160-gcc4-glibc-x86_64-core2-sse4.so codec_g729.so
 #chmod 777 codec_g729.so
 
+##fstab entry
+tee -a /etc/fstab <<EOF
+none /var/spool/asterisk/monitor tmpfs nodev,nosuid,noexec,nodiratime,size=2G 0 0
+EOF
+
+## FTP fix
+##tee -a /etc/ssh/sshd_config << EOF
+#Subsystem      sftp    /usr/libexec/openssh/sftp-server
+##Subsystem sftp internal-sftp
+##EOF
+
+##confbridge fix
+cd /usr/src/vicidial-install-scripts/
+yes | cp -rf extensions.conf /etc/asterisk/extensions.conf
+cp -rf confbridge-vicidial.conf /etc/asterisk/
+
+tee -a /etc/asterisk/confbridge.conf <<EOF
+
+#include confbridge-vicidial.conf
+EOF
+
+systemctl daemon-reload
+sudo systemctl enable rc-local.service
+sudo systemctl start rc-local.service
+
+
+
 
 
