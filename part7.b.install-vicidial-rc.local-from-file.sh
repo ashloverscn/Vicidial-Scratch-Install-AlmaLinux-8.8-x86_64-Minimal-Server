@@ -11,3 +11,22 @@ chmod +x /etc/rc.d/rc.local
 systemctl enable rc-local
 systemctl start rc-local
 
+echo -e "\e[0;32m add rc-local as a Service for vicidial ServiceS Startup \e[0m"
+sleep 2
+#add rc-local as a service - thx to ras
+tee -a /etc/systemd/system/rc-local.service <<EOF
+[Unit]
+Description=/etc/rc.local Compatibility
+
+[Service]
+Type=oneshot
+ExecStart=/etc/rc.local
+TimeoutSec=0
+StandardInput=tty
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
