@@ -77,5 +77,15 @@ echo -e "\e[0;32m Doing Some BUG FIX \e[0m"
 #this is some kind of bug fix to bring back version info in the report panel by carpenox idont know much 
 perl install.pl --no-prompt
 /usr/share/astguiclient/ADMIN_audio_store_sync.pl --upload
+##Fix ip_relay
+cd /usr/src/astguiclient/trunk/extras/ip_relay/
+unzip ip_relay_1.1.112705.zip
+cd ip_relay_1.1/src/unix/
+make
+cp ip_relay ip_relay2
+mv -f ip_relay /usr/bin/
+mv -f ip_relay2 /usr/local/bin/ip_relay
+
+
 
 
