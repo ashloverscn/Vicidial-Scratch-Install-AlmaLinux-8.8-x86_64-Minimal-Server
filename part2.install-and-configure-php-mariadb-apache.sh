@@ -43,8 +43,6 @@ yum in mariadb-devel libopen*
 yum in initscripts pv python3-pip
 pip install mysql-connector-python
 
-yum install -y kernel-devel-$(uname -r) kernel-headers-$(uname -r)
-
 dnf -y copr enable irontec/sngrep
 dnf -y install sngrep
 
