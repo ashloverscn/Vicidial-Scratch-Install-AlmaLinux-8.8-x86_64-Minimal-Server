@@ -8,7 +8,7 @@ yum -y install epel-release
 yum -y update
 yum -y install bash-completion bash-completion-extras
 yum -y install kernel
-yum -y install kernel*
+#yum -y install kernel*
 yum -y install kernel-* --exclude=kernel-debug* -y
 #yum -y remove kernel-debug*
 
