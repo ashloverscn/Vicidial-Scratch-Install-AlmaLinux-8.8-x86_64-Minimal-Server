@@ -61,7 +61,8 @@ mysql -u root -e "use asterisk; INSERT INTO vicidial_confbridges VALUES (9600000
 echo -e "\e[0;32m Install vicidial \e[0m"
 sleep 2
 cd /usr/src/astguiclient/trunk
-perl install.pl
+#perl install.pl
+perl install.pl --no-prompt --copy_sample_conf_files=Y
 
 echo -e "\e[0;32m Populate area codes \e[0m"
 sleep 2
