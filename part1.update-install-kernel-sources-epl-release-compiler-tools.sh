@@ -12,6 +12,7 @@ yum -y install kernel
 #yum -y install kernel*
 yum -y install kernel-* --exclude=kernel-debug* -y
 #yum -y remove kernel-debug*
+#yum install -y kernel-devel-$(uname -r) kernel-headers-$(uname -r)
 
 echo -e "\e[0;32m Disable SeLinux \e[0m"
 sleep 2
