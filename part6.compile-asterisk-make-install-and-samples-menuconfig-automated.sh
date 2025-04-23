@@ -76,3 +76,7 @@ WantedBy=basic.target
 Also=systemd-networkd-wait-online.service
 
 ASTERISK
+
+#restart asterisk Service
+systemctl enable asterisk.service
+systemctl restart asterisk.service
