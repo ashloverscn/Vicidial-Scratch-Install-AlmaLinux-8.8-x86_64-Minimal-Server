@@ -67,10 +67,15 @@ perl install.pl --no-prompt --copy_sample_conf_files=Y
 echo -e "\e[0;32m Populate area codes \e[0m"
 sleep 2
 /usr/share/astguiclient/ADMIN_area_code_populate.pl
+
 echo -e "\e[0;32m Update server ip \e[0m"
 sleep 2
 #/usr/share/astguiclient/ADMIN_update_server_ip.pl --old-server_ip=10.10.10.15
 /usr/share/astguiclient/ADMIN_update_server_ip.pl --old-server_ip=10.10.10.15 --server_ip=$serveripadd --auto
+
+echo -e "\e[0;32m Doing Some BUG FIX \e[0m"
+#this is some kind of bug fix to bring back version info in the report panel by carpenox idont know much 
+perl install.pl --no-prompt
 /usr/share/astguiclient/ADMIN_audio_store_sync.pl --upload
 
 
