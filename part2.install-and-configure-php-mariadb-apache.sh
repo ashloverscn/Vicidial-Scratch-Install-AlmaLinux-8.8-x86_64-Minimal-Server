@@ -121,12 +121,18 @@ echo "" > /etc/php.ini
 echo -e "\e[0;32m create index.html in webroot for redirecting to welcome.php \e[0m"
 sleep 2
 
-touch /var/www/html/index.html
-echo "" > /var/www/html/index.html
-sed -i -e '$a\
-<META HTTP-EQUIV=REFRESH CONTENT="1; URL=/vicidial/welcome.php"> \
-Please Hold while I redirect you! \
-' /var/www/html/index.html
+#touch /var/www/html/index.html
+#echo "" > /var/www/html/index.html
+#sed -i -e '$a\
+#<META HTTP-EQUIV=REFRESH CONTENT="1; URL=/vicidial/welcome.php"> \
+#Please Hold while I redirect you! \
+#' /var/www/html/index.html
+
+cat <<WELCOME>> /var/www/html/index.html
+<META HTTP-EQUIV=REFRESH CONTENT="1; URL=/vicidial/welcome.php">
+Please Hold while I redirect you!
+WELCOME
+
 
 echo -e "\e[0;32m Enable and start Httpd and MariaDb services \e[0m"
 sleep 2
