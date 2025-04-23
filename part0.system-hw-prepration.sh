@@ -10,6 +10,7 @@ export LC_ALL=C
 echo -e "\e[0;32m Enable Logging in aS root \e[0m"
 sleep 2
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+systemctl restart sshd.service
 
 echo -e "\e[0;32m Install NetworkManager Cli Gui \e[0m"
 sleep 2
