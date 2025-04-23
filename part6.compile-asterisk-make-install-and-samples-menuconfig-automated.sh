@@ -55,4 +55,22 @@ systemctl enable asterisk && systemctl start asterisk
 
 \cp -r /usr/src/asterisk-$ver/contrib/init.d/rc.redhat.asterisk /etc/init.d/asterisk
 
+#Asterisk service
+cat <<ASTERISK>> /etc/systemd/system/asterisk.service <<EOF
 
+[Unit]
+Description=Asterisk PBX
+Wants=nss-lookup.target
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+PIDFile=/run/asterisk/asterisk.pid
+ExecStart=/usr/sbin/asterisk -fn
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=basic.target
+Also=systemd-networkd-wait-online.service
+
+ASTERISK
