@@ -69,7 +69,8 @@ sleep 2
 /usr/share/astguiclient/ADMIN_area_code_populate.pl
 echo -e "\e[0;32m Update server ip \e[0m"
 sleep 2
-/usr/share/astguiclient/ADMIN_update_server_ip.pl --old-server_ip=10.10.10.15
+#/usr/share/astguiclient/ADMIN_update_server_ip.pl --old-server_ip=10.10.10.15
+/usr/share/astguiclient/ADMIN_update_server_ip.pl --old-server_ip=10.10.10.15 --server_ip=$serveripadd --auto
 /usr/share/astguiclient/ADMIN_audio_store_sync.pl --upload
 
 
