@@ -112,6 +112,20 @@ tee -a /etc/asterisk/confbridge.conf <<EOF
 #include confbridge-vicidial.conf
 EOF
 
+chkconfig asterisk off
+
+## add confcron user
+tee -a /etc/asterisk/manager.conf <<EOF
+
+[confcron]
+secret = 1234
+read = command,reporting
+write = command,reporting
+
+eventfilter=Event: Meetme
+eventfilter=Event: Confbridge
+EOF
+
 systemctl daemon-reload
 sudo systemctl enable rc-local.service
 sudo systemctl start rc-local.service
