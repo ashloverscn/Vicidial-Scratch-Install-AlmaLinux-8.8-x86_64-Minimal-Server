@@ -55,8 +55,10 @@ systemctl enable asterisk && systemctl start asterisk
 
 \cp -r /usr/src/asterisk-$ver/contrib/init.d/rc.redhat.asterisk /etc/init.d/asterisk
 
-#Asterisk service
-cat <<ASTERISK>> /etc/systemd/system/asterisk.service <<EOF
+echo -e "\e[0;32m Enable asterisk.service in systemctl \e[0m"
+sleep 2
+
+cat <<ASTERISK>> /etc/systemd/system/asterisk.service
 
 [Unit]
 Description=Asterisk PBX
