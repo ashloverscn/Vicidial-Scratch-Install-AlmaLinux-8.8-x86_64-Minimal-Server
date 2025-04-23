@@ -7,6 +7,10 @@ sleep 5
 export LC_ALL=C
 
 # part 0
+echo -e "\e[0;32m Enable Logging in aS root \e[0m"
+sleep 2
+sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
 echo -e "\e[0;32m Install NetworkManager Cli Gui \e[0m"
 sleep 2
 dnf -y install NetworkManager NetworkManager-tui 
@@ -53,11 +57,10 @@ sleep 2
 yum -y install cockpit
 sed -i s/root/"#root"/g /etc/cockpit/disallowed-users
 systemctl enable --now cockpit.socket
-firewall-cmd --permanent --zone=public --add-service=cockpit
-firewall-cmd --permanent --add-service=cockpit
-firewall-cmd --permanent --add-port=9090/tcp
-firewall-cmd --reload
-sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+#firewall-cmd --permanent --zone=public --add-service=cockpit
+#firewall-cmd --permanent --add-service=cockpit
+#firewall-cmd --permanent --add-port=9090/tcp
+#firewall-cmd --reload
 
 echo -e "\e[0;32m Enable grub verbose boot \e[0m"
 sleep 2
