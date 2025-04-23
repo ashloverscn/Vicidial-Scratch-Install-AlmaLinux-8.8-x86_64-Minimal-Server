@@ -54,6 +54,7 @@ sed -i s/root/"#root"/g /etc/cockpit/disallowed-users
 systemctl enable --now cockpit.socket
 firewall-cmd --permanent --zone=public --add-service=cockpit
 firewall-cmd --reload
+sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 echo -e "\e[0;32m Enable grub verbose boot \e[0m"
 sleep 2
