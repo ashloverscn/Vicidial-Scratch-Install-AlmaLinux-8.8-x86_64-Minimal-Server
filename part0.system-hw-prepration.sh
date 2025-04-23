@@ -49,7 +49,8 @@ firewall-cmd --reload
 echo -e "\e[0;32m Enable cockpit root access and port 9090 in firewalld zone public \e[0m"
 sleep 2
 
-yum -y install cockpit cockpit-storaged cockpit-navigator
+#yum -y install cockpit cockpit-storaged cockpit-navigator
+yum -y install cockpit
 sed -i s/root/"#root"/g /etc/cockpit/disallowed-users
 systemctl enable --now cockpit.socket
 firewall-cmd --permanent --zone=public --add-service=cockpit
