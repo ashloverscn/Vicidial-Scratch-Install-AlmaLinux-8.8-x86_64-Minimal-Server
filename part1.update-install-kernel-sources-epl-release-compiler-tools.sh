@@ -2,6 +2,7 @@
 
 echo -e "\e[0;32m Update install kernel-sources epl-release compiler tools \e[0m"
 sleep 2
+cd /usr/src
 yum check-update
 yum -y update
 yum -y install epel-release
