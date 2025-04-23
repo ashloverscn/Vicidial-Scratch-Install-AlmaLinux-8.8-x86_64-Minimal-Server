@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo -e "\e[0;32m Enable quick overview of vicidial ServiceS once on each root user Login \e[0m"
+echo -e "\e[0;32m Enable quick overview of vicidial ServiceS once everytime when root user Login \e[0m"
 sleep 2
 
 cd /usr/src
