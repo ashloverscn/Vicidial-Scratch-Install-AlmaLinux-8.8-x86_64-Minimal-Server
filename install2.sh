@@ -73,8 +73,7 @@ chmod +x /usr/src/install.sh
 ./part6.*.sh
 ./part7.a.*.sh
 ./part7.b.*.sh
-./part7.b.*.sh
-./part8.c.*.sh
+./part7.c.*.sh
 ./part8.a.*.sh
 ./part8.b.*.sh
 ./part9.*.sh
