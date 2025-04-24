@@ -15,11 +15,11 @@ yum install dahdi* -y
 yum install dahdi-tools* -y
 if [ $oem -eq 1 ]
 then
-	wget http://download.vicidial.com/required-apps/dahdi-linux-complete-2.3.0.1+2.3.0.tar.gz
+	#wget http://download.vicidial.com/required-apps/dahdi-linux-complete-2.3.0.1+2.3.0.tar.gz
 	tar -xvzf dahdi-linux-complete-2.3.0.1+2.3.0.tar.gz
 	cd dahdi-linux-complete-2.3.0.1+2.3.0
 else
-	wget -O dahdi-linux-complete-$ver+$ver.tar.gz https://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/dahdi-linux-complete-$ver+$ver.tar.gz
+	#wget -O dahdi-linux-complete-$ver+$ver.tar.gz https://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/dahdi-linux-complete-$ver+$ver.tar.gz
 	tar -xvzf dahdi-linux-complete-$ver+$ver.tar.gz
 	cd dahdi-linux-complete-$ver+$ver
 fi
@@ -27,6 +27,19 @@ fi
 #sed -i 's|(netdev, \&wc->napi, \&wctc4xxp_poll, 64);|(netdev, \&wc->napi, \&wctc4xxp_poll);|g' /usr/src/dahdi-linux-complete-$ver+$ver/linux/drivers/dahdi/wctc4xxp/base.c
 sudo sed -i 's|, 64);|);|g' /usr/src/dahdi-linux-complete-$ver+$ver/linux/drivers/dahdi/wctc4xxp/base.c
 sed -i 's|<linux/pci-aspm.h>|<linux/pci.h>|g' /usr/src/dahdi-linux-complete-$ver+$ver/linux/include/dahdi/kernel.h
+
+#this is a temporary fix for dahdi-3.4.0 by nox
+ln -sf /usr/lib/modules/$(uname -r)/vmlinux.xz /boot/
+cd /etc/include
+wget https://dialer.one/newt.h
+
+cd /usr/src/
+mkdir dahdi-linux-complete-3.4.0+3.4.0
+cd dahdi-linux-complete-3.4.0+3.4.0
+wget https://cybur-dial.com/dahdi-9.5-fix.zip
+unzip dahdi-9.5-fix.zip
+yum in newt* -y
+#
 
 make all
 make install
