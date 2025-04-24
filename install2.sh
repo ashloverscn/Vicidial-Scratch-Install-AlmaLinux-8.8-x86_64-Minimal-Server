@@ -67,17 +67,18 @@ chmod +x /usr/src/install.sh
 ./part4.a.*.sh
 ./part4.b.*.sh
 ./part4.c.*.sh
-./part4.d.*.sh
-./part4.e.*.sh
 ./part5.a.*.sh
 ./part5.b.*.sh
+./part5.c.*.sh
 ./part6.*.sh
-./part7.*.sh
-./part8.*.sh
-./part9.a.*.sh
-./part9.b.*.sh
-./part10.*.sh
-./viciphone-webrtc-install.sh
+./part7.a.*.sh
+./part7.b.*.sh
+./part7.b.*.sh
+./part8.c.*.sh
+./part8.a.*.sh
+./part8.b.*.sh
+./part9.*.sh
+#./viciphone-webrtc-install.sh
 #./cleanup.sh
 
 echo -e "\e[0;32m Vicidial-Scratch-Install-AlmaLinux-8.8-x86_64-Minimal-Server Installation Complete! \e[0m"
