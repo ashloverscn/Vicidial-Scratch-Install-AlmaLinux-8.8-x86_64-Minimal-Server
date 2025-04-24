@@ -27,6 +27,6 @@ sleep 2
 /usr/src/./jail_blackip.sh
 
 systemctl restart fail2ban
-systemctl status fail2ban
+systemctl status fail2ban | head -n 18
 
 
