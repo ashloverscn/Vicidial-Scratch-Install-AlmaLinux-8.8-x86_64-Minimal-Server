@@ -74,6 +74,6 @@ grub2-mkconfig -o /boot/grub2/grub.cfg
 echo -e "\e[0;32m Enable PrintMotd file to show terminal welcome msg \e[0m"
 sleep 2
 
-/usr/src/./enable-PrintMotd.sh
+#/usr/src/./enable-PrintMotd.sh
 
 #reboot
