@@ -26,7 +26,7 @@ sed -i "s|olddomainname|${domainname}|g" /usr/src/$backupfilename
 mysql -uroot -e "drop database asterisk"
 mysql -uroot -e "create database asterisk"
 mysql -uroot asterisk < /usr/src/$backupfilename
-mysql -u root -f asterisk < /usr/src/astguiclient/trunk/extras/upgrade_2.8.sql
+mysql -u root -f asterisk < /usr/src/astguiclient/trunk/extras/upgrade_2.14.sql
 
 echo -e "\e[0;32m Please Enter New Admin User 6666 password \e[0m"
 read admin6666pass
