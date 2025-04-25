@@ -128,7 +128,7 @@ EOF
 
 systemctl daemon-reload
 systemctl enable rc-local.service
-systemctl start rc-local.service
+systemctl start rc-local.service &
 
 ## fix server external ip error
 sed -i 's/SERVER_EXTERNAL_IP/0.0.0.0/' /etc/asterisk/pjsip.conf
