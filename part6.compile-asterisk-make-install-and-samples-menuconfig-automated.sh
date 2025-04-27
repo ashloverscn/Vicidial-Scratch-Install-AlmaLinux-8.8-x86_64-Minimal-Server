@@ -34,7 +34,8 @@ tar -xvzf asterisk-$ver-patch.tar.gz
 
 fi
 
-: ${JOBS:=$(( $(nproc) + $(nproc) / 2 ))}
+#: ${JOBS:=$(( $(nproc) + $(nproc) / 2 ))}
+: ${JOBS:=$(nproc)}
 ./configure --libdir=/usr/lib64 --with-gsm=internal --enable-opus --enable-srtp --with-ssl --enable-asteriskssl --with-pjproject-bundled --with-jansson-bundled
 
 #### asterisk menuselect preconfig
@@ -51,12 +52,14 @@ make samples
 make config
 sed -i 's|noload = chan_sip.so|;noload = chan_sip.so|g' /etc/asterisk/modules.conf
 
-systemctl enable asterisk && systemctl start asterisk
-
 \cp -r /usr/src/asterisk-$ver/contrib/init.d/rc.redhat.asterisk /etc/init.d/asterisk
 
 echo -e "\e[0;32m Enable asterisk.service in systemctl \e[0m"
 sleep 2
+
+\cp -r /etc/systemd/system/asterisk.service /etc/systemd/system/asterisk.service.bak
+rm -rf /etc/systemd/system/asterisk.service
+touch /etc/systemd/system/asterisk.service
 
 cat <<ASTERISK>> /etc/systemd/system/asterisk.service
 
@@ -67,9 +70,12 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
+Type=simple
 PIDFile=/run/asterisk/asterisk.pid
 ExecStart=/usr/sbin/asterisk -fn
 ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=5
 
 [Install]
 WantedBy=basic.target
@@ -78,5 +84,8 @@ Also=systemd-networkd-wait-online.service
 ASTERISK
 
 #restart asterisk Service
-systemctl enable asterisk.service
-systemctl restart asterisk.service
+systemctl daemon-reload && \
+systemctl disable asterisk.service && \
+systemctl enable asterisk.service && \
+systemctl restart asterisk.service && \
+systemctl status asterisk.service | head -n 18
