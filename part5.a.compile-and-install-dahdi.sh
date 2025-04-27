@@ -56,7 +56,7 @@ dahdi_cfg -v
 
 cd tools
 make clean
-make all
+make -j ${JOBS} all
 make install
 make install-config
 
