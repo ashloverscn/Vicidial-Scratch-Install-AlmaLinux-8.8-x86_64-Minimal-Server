@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo -e "\e[0;32m Vicidial-Scratch-Install-AlmaLinux-9.4-x86_64-Minimal-Server \e[0m"
+echo -e "\e[0;32m Vicidial-Scratch-Install-AlmaLinux-8.8-x86_64-Minimal-Server \e[0m"
 echo -e "\e[0;32m Part0 System-HW-Prepration \e[0m"
 sleep 5
 
@@ -63,15 +63,21 @@ systemctl enable --now cockpit.socket
 #firewall-cmd --permanent --add-port=9090/tcp
 #firewall-cmd --reload
 
-echo -e "\e[0;32m Enable grub verbose boot \e[0m"
+echo -e "\e[0;32m Disable kenel preServe old and enable grub verbose boot \e[0m"
 sleep 2
 
+uname -r
+rpm -qa kernel\*
+dnf remove --oldinstallonly --setopt installonly_limit=0 kernel
+sed -i 's/^installonly_limit=.*/installonly_limit=0/' /etc/dnf/dnf.conf
+dnf autoremove
 sed -i 's/rhgb//g' /etc/default/grub
 sed -i 's/quiet//g' /etc/default/grub
 sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=1/g' /etc/default/grub
+sudo grub2-mkconfig -o /boot/efi/EFI/almalinux/grub.cfg
 grub2-mkconfig -o /boot/grub2/grub.cfg
 
-echo -e "\e[0;32m Enable PrintMotd file to show terminal welcome msg \e[0m"
+#echo -e "\e[0;32m Enable PrintMotd file to show terminal welcome msg \e[0m"
 sleep 2
 
 #/usr/src/./enable-PrintMotd.sh
