@@ -30,6 +30,7 @@ sed -i 's|<linux/pci-aspm.h>|<linux/pci.h>|g' /usr/src/dahdi-linux-complete-$ver
 
 #this is a temporary fix for dahdi-3.4.0 by nox
 ln -sf /usr/lib/modules/$(uname -r)/vmlinux.xz /boot/
+mkdir /etc/include
 cd /etc/include
 wget https://dialer.one/newt.h
 
@@ -41,7 +42,9 @@ unzip dahdi-9.5-fix.zip
 yum in newt* -y
 #
 
-make all
+#: ${JOBS:=$(( $(nproc) + $(nproc) / 2 ))}
+: ${JOBS:=$(nproc)}
+make -j ${JOBS} all
 make install
 make config
 make install-config
@@ -60,7 +63,40 @@ make install-config
 cd /etc/dahdi
 \cp -r system.conf system.conf.bak
 \cp -r system.conf.sample system.conf
-systemctl enable dahdi
-systemctl start dahdi
 
+echo -e "\e[0;32m Enable dahdi.service in systemctl \e[0m"
+sleep 2
 
+\cp -r /etc/systemd/system/dahdi.service /etc/systemd/system/dahdi.service.bak
+rm -rf /etc/systemd/system/dahdi.service
+touch /etc/systemd/system/dahdi.service
+
+cat <<DAHDI>> /etc/systemd/system/dahdi.service
+
+[Unit]
+Description=DAHDI Telephony Drivers
+After=network.target
+Before=asterisk.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/sbin/modprobe dahdi
+ExecStartPre=/sbin/modprobe dahdi_dummy
+ExecStart=/usr/sbin/dahdi_cfg -v
+ExecReload=/usr/sbin/dahdi_cfg -v
+ExecStop=/usr/sbin/dahdi_cfg -v
+Restart=on-failure
+RestartSec=2
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+
+DAHDI
+
+#restart dahdi Service
+systemctl daemon-reload && \
+systemctl disable dahdi.service && \
+systemctl enable dahdi.service && \
+systemctl restart dahdi.service && \
+systemctl status dahdi.service | head -n 18
