@@ -15,7 +15,6 @@ rm -rf /usr/local/bin/cpm
 rm -rf /bin/cpm
 rm -rf ~/.cpanm
 rm -rf ~/.cpan
-
 ##CPM install (Symlnk user cpm path to root bin)
 curl -fsSL https://raw.githubusercontent.com/skaji/cpm/master/cpm > /usr/local/bin/cpm
 curl -fsSL https://raw.githubusercontent.com/skaji/cpm/master/cpm > /bin/cpm
