@@ -17,10 +17,10 @@ rm -rf ~/.cpanm
 rm -rf ~/.cpan
 
 ##CPM install
-#curl -fsSL https://raw.githubusercontent.com/skaji/cpm/master/cpm > /usr/local/bin/cpm
-#curl -fsSL https://raw.githubusercontent.com/skaji/cpm/master/cpm > /bin/cpm
-#chmod +x /usr/local/bin/cpm
-#chmod +x /bin/cpm
+curl -fsSL https://raw.githubusercontent.com/skaji/cpm/master/cpm > /usr/local/bin/cpm
+curl -fsSL https://raw.githubusercontent.com/skaji/cpm/master/cpm > /bin/cpm
+chmod +x /usr/local/bin/cpm
+chmod +x /bin/cpm
 ##seup cpm mirror (may be installed without mirrorS too)
 #export PERL_CPANM_OPT="--mirror http://www.cpan.org/ --mirror-only"
 ##install cpm modules globally for all uSerS
