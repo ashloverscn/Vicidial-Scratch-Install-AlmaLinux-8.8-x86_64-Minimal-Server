@@ -11,12 +11,11 @@ cpm --clean
 rm -f $(which cpm)
 ##Remove CPM-related cache and configuration
 rm -rf ~/.perl-cpm
+rm -rf ~/.cpanm
+rm -rf ~/.cpan
 #Remove the CPM executable from common installation locations
 rm -rf /usr/local/bin/cpm
 rm -rf /bin/cpm
-#Remove CPAN and CPAN Minus caches
-rm -rf ~/.cpanm
-rm -rf ~/.cpan
 # Remove Perl libraries from system-installed directories for the current Perl version
 rm -rf /usr/local/lib/$perl_version/perl/*
 rm -rf /usr/local/share/perl/$perl_version/*
