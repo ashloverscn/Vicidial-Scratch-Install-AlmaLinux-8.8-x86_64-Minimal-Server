@@ -3,18 +3,7 @@
 echo -e "\e[0;32m Install and Configure Perl-CPAN\Perl-CPAN-Modules \e[0m"
 sleep 2
 cd /usr/src
-which cpm
 yum install -y perl-CPAN perl-YAML perl-CPAN-DistnameInfo perl-libwww-perl perl-DBI perl-DBD-MySQL perl-GD perl-Env perl-Term-ReadLine-Gnu perl-SelfLoader perl-open.noarch 
-cpm --clean
-##CPM complete uninstall remove
-rm -f $(which cpm)
-rm -rf ~/.perl-cpm
-rm -rf /usr/local/lib/*/perl/*
-rm -rf /usr/local/share/perl/*
-rm -rf /usr/local/bin/cpm
-rm -rf /bin/cpm
-rm -rf ~/.cpanm
-rm -rf ~/.cpan
 ##CPM install (Symlnk user cpm path to root bin)
 #curl -fsSL https://raw.githubusercontent.com/skaji/cpm/master/cpm > /usr/local/bin/cpm
 #curl -fsSL https://raw.githubusercontent.com/skaji/cpm/master/cpm > /bin/cpm
