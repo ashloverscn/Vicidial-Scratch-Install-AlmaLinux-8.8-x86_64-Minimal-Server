@@ -7,6 +7,11 @@ yum remove -y perl-CPAN perl-YAML perl-CPAN-DistnameInfo perl-libwww-perl perl-D
 ##Get the current Perl version dynamically
 perl_version=$(perl -V:version | awk -F= '{print $2}' | tr -d ' "')
 cpm --clean
+##Remove CPM executable
+cpm_path=$(which cpm)
+if [ -n "$cpm_path" ]; then
+  rm -f "$cpm_path"
+fi
 ##CPM complete uninstall remove
 rm -f $(which cpm)
 ##Remove CPM-related cache and configuration
