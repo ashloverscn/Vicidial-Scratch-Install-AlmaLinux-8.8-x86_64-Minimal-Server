@@ -28,8 +28,8 @@ dnf -y install NetworkManager NetworkManager-tui
 #net.ipv6.conf.enp0s3.disable_ipv6 = 1 \
 #' /etc/sysctl.conf
 
-systemctl restart network
-service network restart
+systemctl restart NetworkManager
+service NetworkManager restart
 
 echo -e "\e[0;32m Configure vicidial firewalld with xml config files \e[0m"
 sleep 2
