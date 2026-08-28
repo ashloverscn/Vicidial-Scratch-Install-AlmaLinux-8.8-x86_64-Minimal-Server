@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ipset type="hash:ip">
+  <short>ViciWhite</short>
+  <description>ViciBox Whitelist</description>
+  <option name="maxelem" value="262144"/>
+</ipset>
+

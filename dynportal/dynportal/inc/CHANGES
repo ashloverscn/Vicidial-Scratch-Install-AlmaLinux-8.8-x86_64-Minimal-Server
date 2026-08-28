@@ -1,0 +1,47 @@
+# ViciBox Dynamic Portal Change Log
+
+-------------------------------------------------------------------
+ 190523-1859 - jamesp@vicidial.com
+
+- Release v.1.2
+    o Added an incurred delay to all submit requests regardless of 
+        whether the login was correct or not; Default 1 second
+    o Added an Apache mod_cband configuration to deter DDoS and brute
+        force attempts; Requires the mod_cband apache module to be loaded
+    o mod_cband requires /srv/www/cband/dynportal.scoreboard to work
+        and it must be owned by the apache user (wwwrun:www on ViciBox)
+    o Updated and consolidated the Apache VHost configs
+    o Restricted access to ./inc directory through Apache directly
+    o Configurable HTML User ID and Password variable names to help
+        prevent bots and script kiddies from using canned attacks
+    o Added $PORTAL_casesensitivity to defaults.inc.php to control whether
+        the user or password field is matched aginst case sensitivity
+    o Added a check for failed login attempts stored within ViciDial so
+        that the portal can be tied to ViciDial's own security measures;
+        Default is 5
+    o Added the ability to increase the ViciDial failed login count
+        when invalid portal auth attempts are made; Disabled by default
+    o Added $PORTAL_adminfield in defaults.inc.php to allow the use of
+        any field in the vicidial_users table to be used for determining
+        if the regular or admin redirect URL is used
+    o Removed Changes section from code and put into the CHANGES file
+
+
+-------------------------------------------------------------------
+ 181025-1857 - jamesp@vicidial.com
+
+- Release v.1.1
+    o  Configurable Agent URL
+    o  Configurable Admin URL
+    o  Countdown timer with redirect message is displayed to the user upon successful login
+    o  Configurable countdown timer, default is 60 seconds
+    o  If the 'Phone Login' of the user's record in ViciDial is set to 'admin' it will redirect to the Admin URL
+    o  Phone/User login and password can be passed through to the agent or admin interface
+    o  By default only IP validation is enabled, the above can be set through the defaults.inc.php file
+
+
+-------------------------------------------------------------------
+ 181010-1144 - jamesp@vicidial.com
+
+- Initial Release v.1.0
+

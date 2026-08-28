@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>Dynamic Portal SSL</short>
+  <description>ViciBox dynamic agent log-in portal</description>
+  <port protocol="tcp" port="446"/>
+</service>
+

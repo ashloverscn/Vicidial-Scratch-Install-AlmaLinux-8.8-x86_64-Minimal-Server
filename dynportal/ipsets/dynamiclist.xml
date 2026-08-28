@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ipset type="hash:ip">
+  <short>ViciDynamic</short>
+  <description>ViciBox Dynamic IP List</description>
+  <option name="maxelem" value="262144"/>
+</ipset>
+

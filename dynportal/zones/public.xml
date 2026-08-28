@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<zone>
+  <short>Public</short>
+  <description>For use in public areas. You do not trust the other computers on networks to not harm your computer. Only selected incoming connections are accepted.</description>
+  <service name="ssh"/>
+  <service name="viciportal-ssl"/>
+  <service name="viciportal"/>
+  <service name="rtp"/>
+  <rule family="ipv4">
+    <source ipset="whiteips"/>
+    <service name="apache2"/>
+    <accept/>
+  </rule>
+  <rule family="ipv4">
+    <source ipset="whitenets"/>
+    <service name="apache2"/>
+    <accept/>
+  </rule>
+  <rule family="ipv4">
+    <source ipset="dynamiclist"/>
+    <service name="apache2"/>
+    <accept/>
+  </rule>
+  <rule family="ipv4">
+    <source ipset="whiteips"/>
+    <service name="apache2-ssl"/>
+    <accept/>
+  </rule>
+  <rule family="ipv4">
+    <source ipset="whitenets"/>
+    <service name="apache2-ssl"/>
+    <accept/>
+  </rule>
+  <rule family="ipv4">
+    <source ipset="dynamiclist"/>
+    <service name="apache2-ssl"/>
+    <accept/>
+  </rule>
+  <rule family="ipv4">
+    <source ipset="whiteips"/>
+    <service name="asterisk"/>
+    <accept/>
+  </rule>
+  <rule family="ipv4">
+    <source ipset="whitenets"/>
+    <service name="asterisk"/>
+    <accept/>
+  </rule>
+  <rule family="ipv4">
+    <source ipset="dynamiclist"/>
+    <service name="asterisk"/>
+    <accept/>
+  </rule>
+</zone>

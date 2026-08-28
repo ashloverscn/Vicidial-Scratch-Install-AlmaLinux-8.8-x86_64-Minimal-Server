@@ -1,0 +1,95 @@
+dnf install -y epel-release
+dnf install -y \
+    firewalld \
+    ipset \
+    httpd \
+    mariadb-server \
+    mod_ssl \
+    php \
+    php-cli \
+    php-fpm \
+    php-mysqlnd \
+    php-gd \
+    php-mbstring \
+    php-xml \
+    perl-DBD-mysql \
+    perl-libwww-perl \
+    perl-LWP-Protocol-https \
+    openssl \
+    policycoreutils-python-utils
+
+sudo systemctl enable --now php-fpm
+sudo systemctl enable --now mariadb
+sudo systemctl enable --now httpd
+
+mysql -u root <<EOF
+-- Create database
+CREATE DATABASE IF NOT EXISTS asterisk CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE asterisk;
+
+-- Core user table
+CREATE TABLE IF NOT EXISTS vicidial_users (
+    user_id INT(9) NOT NULL AUTO_INCREMENT,
+    user VARCHAR(20) NOT NULL,
+    pass VARCHAR(100) NOT NULL,
+    full_name VARCHAR(50),
+    user_level INT(2),
+    user_group VARCHAR(20),
+    active VARCHAR(1),
+    PRIMARY KEY (user_id),
+    UNIQUE KEY user (user)
+) ENGINE=MyISAM;
+
+-- User login log table
+CREATE TABLE IF NOT EXISTS vicidial_user_log (
+    user_log_id INT(11) NOT NULL AUTO_INCREMENT,
+    user VARCHAR(20),
+    event_date DATETIME,
+    event VARCHAR(50),
+    campaign_id VARCHAR(8),
+    computer_ip VARCHAR(15),
+    server_ip VARCHAR(15),
+    PRIMARY KEY (user_log_id),
+    INDEX user_date_idx (user, event_date)
+) ENGINE=MyISAM;
+
+-- Server performance table
+CREATE TABLE IF NOT EXISTS server_performance (
+    start_time DATETIME,
+    server_ip VARCHAR(15),
+    load_average VARCHAR(10),
+    used_ram INT(11),
+    total_ram INT(11)
+) ENGINE=MyISAM;
+
+-- Live agents table
+CREATE TABLE IF NOT EXISTS vicidial_live_agents (
+    live_agent_id INT(9) NOT NULL AUTO_INCREMENT,
+    user VARCHAR(20),
+    server_ip VARCHAR(15),
+    conf_exten VARCHAR(20),
+    status VARCHAR(6),
+    campaign_id VARCHAR(8),
+    PRIMARY KEY (live_agent_id)
+) ENGINE=MEMORY;
+
+-- Insert user 6666 with password 1234
+INSERT INTO vicidial_users (user, pass, full_name, user_level, user_group, active)
+VALUES ('6666', '1234', 'Mock Test Admin', 9, 'ADMIN', 'Y')
+ON DUPLICATE KEY UPDATE pass='1234', active='Y';
+
+-- Explicitly create users first (fixes ERROR 1133)
+CREATE USER IF NOT EXISTS 'cron'@'localhost' IDENTIFIED BY '1234';
+CREATE USER IF NOT EXISTS 'cron'@'%' IDENTIFIED BY '1234';
+CREATE USER IF NOT EXISTS '6666'@'localhost' IDENTIFIED BY '1234';
+CREATE USER IF NOT EXISTS '6666'@'%' IDENTIFIED BY '1234';
+
+-- Grant privileges
+GRANT ALL PRIVILEGES ON asterisk.* TO 'cron'@'localhost';
+GRANT ALL PRIVILEGES ON asterisk.* TO 'cron'@'%';
+GRANT ALL PRIVILEGES ON asterisk.* TO '6666'@'localhost';
+GRANT ALL PRIVILEGES ON asterisk.* TO '6666'@'%';
+
+FLUSH PRIVILEGES;
+EOF
+

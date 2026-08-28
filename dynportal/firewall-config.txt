@@ -1,0 +1,62 @@
+#!/bin/bash
+set -uo pipefail
+
+echo "[*] Step 1: Resetting Firewalld cleanly..."
+systemctl stop firewalld
+rm -f /etc/firewalld/zones/authedzone.xml /etc/firewalld/ipsets/dynamiclist.xml 2>/dev/null || true
+systemctl start firewalld
+firewall-cmd --complete-reload
+
+echo "[*] Step 2: Creating Native IPSet with a 24-Hour Timeout..."
+firewall-cmd --permanent --new-ipset=dynamiclist --type=hash:ip --option=family=inet --option=timeout=86400
+firewall-cmd --reload
+
+echo "[*] Step 3: Setting up Authenticated Zone linked to IPSet..."
+firewall-cmd --permanent --new-zone=authedzone
+firewall-cmd --permanent --zone=authedzone --set-target=ACCEPT
+firewall-cmd --permanent --zone=authedzone --add-source=ipset:dynamiclist
+
+echo "[*] Step 4: Configuring Public Zone (Keeping SSH & Portal Port 446 Open)..."
+firewall-cmd --permanent --zone=public --add-service=ssh
+firewall-cmd --permanent --zone=public --add-port=81/tcp
+firewall-cmd --permanent --zone=public --add-port=446/tcp
+firewall-cmd --permanent --zone=public --remove-service=http 2>/dev/null || true
+firewall-cmd --permanent --zone=public --remove-service=https 2>/dev/null || true
+
+echo "[*] Step 5: Moving HTTP/HTTPS services into the Authenticated Zone..."
+firewall-cmd --permanent --zone=authedzone --add-service=http
+firewall-cmd --permanent --zone=authedzone --add-service=https
+
+echo "[*] Step 6: Applying changes..."
+firewall-cmd --reload
+systemctl restart httpd
+
+echo "[-] Firewall configuration applied successfully!"
+################################################################################
+
+firewall-cmd --get-ipsets
+
+firewall-cmd --ipset=dynamiclist --get-entries
+
+firewall-cmd --ipset=dynamiclist --add-entry=192.168.29.97
+
+firewall-cmd --ipset=dynamiclist --remove-entry=192.168.29.97
+
+firewall-cmd --permanent --ipset=dynamiclist --add-entry=192.168.29.97
+
+for ip in $(firewall-cmd --ipset=dynamiclist --get-entries); do firewall-cmd --ipset=dynamiclist --remove-entry=$ip; done
+
+firewall-cmd --ipset=dynamiclist --get-entries | xargs -I {} firewall-cmd --ipset=dynamiclist --remove-entry={}
+
+ipset create dynamiclist hash:ip
+
+ipset add dynamiclist 192.168.29.97 
+
+ipset flush dynamiclist
+
+ipset del dynamiclist 192.168.29.97
+
+ipset list dynamiclist
+
+VB-firewall --dynamic
+

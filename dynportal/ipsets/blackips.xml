@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ipset type="hash:ip">
+  <short>ViciBlack</short>
+  <description>ViciBox Blacklist</description>
+  <option name="maxelem" value="262144"/>
+</ipset>
+

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ipset type="hash:net">
+  <short>VoIPBlackListNet</short>
+  <description>VoIPBL.org Network Blacklist</description>
+</ipset>
+

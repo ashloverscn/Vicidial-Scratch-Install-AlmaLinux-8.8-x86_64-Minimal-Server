@@ -1,0 +1,30 @@
+--- functions.original.inc.php	2019-11-20 20:56:30.000000000 +0100
++++ functions.inc.php	2020-03-26 02:53:48.000000000 +0100
+@@ -56,6 +56,8 @@
+ }
+ 
+ function getphonelogin($user) {
++	global $PORTAL_casesensitive;
++	global $PORTAL_adminfield;
+ 	global $dbVICI;
+ 	$phonelogin='';
+ 	$phonepass='';
+@@ -72,6 +74,9 @@
+ 
+ function validate_pw($user,$pass) {
+ 	debugoutput("FUNCTION validate_pw - User: $user, Pass: $pass",2);
++	global $PORTAL_casesensitive;
++	global $PORTAL_unsuccessfullimit;
++	global $PORTAL_countunsuccessful;
+ 	global $dbVICI;
+ 	global $PORTAL_userlevel;
+ 	global $remoteip;
+@@ -116,7 +121,7 @@
+ 		debugoutput("   Plaintext User ID : $userid",2);
+ 	}
+ 	
+-	if ( $pwencrypt>0 && $checkpasshash == $passhash ) {
++	if ( $pwencrypt>0 && $checkpasshash == $passhash && $userid>=1 && $passhash!="" ) {
+ 		// First compare passhash with password if encryption enabled
+ 		debugoutput("   IP $remoteip - User $user validated encrypted IP $remoteip",2);
+ 		$result=true;
